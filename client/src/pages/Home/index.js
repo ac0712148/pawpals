@@ -19,14 +19,14 @@ function Home() {
       <p className="App-intro">
         <button
           type="button"
-          className="btn btn-primary"
+          className="btn btn-primary mt-5"
           onClick={goToEditProfile}
         >
-          Go to Profile
+          Go to/ Save Profile
         </button>
         <button
           type="button"
-          className="btn btn-danger"
+          className="btn btn-danger ml-3 mt-5"
           onClick={() => logout()}
         >
           Logout

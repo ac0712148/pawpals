@@ -22,7 +22,7 @@ function Profile() {
       <p>Email: {email}</p>
       
       <button type="button" className="btn btn-info btn-sm">
-      <Link to="/">Go home</Link>
+      <Link to="/">? Edit Profile ?</Link>
       </button>
       <button type="button" className="btn btn-info btn-sm ml-5">
       <Link to="/following">Following</Link>

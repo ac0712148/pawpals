@@ -48,7 +48,7 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand navbar-dark">
       <div className="container navbar-container">
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand" to="/profile">
           Paw Pals
           <i className="fas fa-dog fa-2x" />
         </Link>
