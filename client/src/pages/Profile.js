@@ -16,8 +16,8 @@ function Profile() {
   }, [user]);
 
   return (
-    <div className="container Profile">
-      <h1>On the profile page!</h1>
+    <div className="container Profile text-center mt-5">
+      <h1>PROFILE PAGE!</h1>
       <p>Username: {username}</p>
       <p>Email: {email}</p>
       
@@ -28,7 +28,10 @@ function Profile() {
       <Link to="/following">Following</Link>
       </button>
       <button type="button" className="btn btn-info btn-sm ml-5">
-      <Link to="/">Go home</Link>
+      <Link to="/myphotos">My Photos</Link>
+      </button>
+      <button type="button" className="btn btn-info btn-sm ml-5">
+      <Link to="/posts">My Posts</Link>
       </button>
     </div>
   );
