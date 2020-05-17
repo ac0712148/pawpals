@@ -9,4 +9,14 @@ router.get('/', (req, res) => {
     .then((posts) => {
         res.status(200).json(posts);
     });
-})
+});
+
+// Create a post
+router.post('/', (req, res) => {
+    db.Post.create(req.body)
+    .then((post) => {
+        res.status(201).json(post);
+    }).catch((err) => {
+        res.status(400).send(err);
+    });
+});
