@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import { useAuth } from "../utils/auth";
 
-function Login() {
+function Login(props) {
+  console.log(props)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { isLoggedIn, login } = useAuth();
