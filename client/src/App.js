@@ -13,22 +13,29 @@ import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
+import LandingPage from "./pages/LandingPage/LandingPage";
 
 function ProtectedRoute({ children, ...rest }) {
   const { isLoggedIn } = useAuth();
   if (isLoggedIn) {
     return children;
   }
-  return <Redirect to="/signup" />;
+  return <Redirect to="/landingpage" />;
 }
 
 function App() {
   return (
     <AuthProvider>
       <Router>
+       
         <div>
           <Navbar />
           <Switch>
+          {/* added this new landing page route */}
+          <Route exact path="/landingpage">
+              <LandingPage />
+            </Route>
+
             <ProtectedRoute exact path="/">
               <Home />
             </ProtectedRoute>
