@@ -52,6 +52,15 @@ function Navbar() {
           Paw Pals
           <i className="fas fa-dog fa-2x" />
         </Link>
+        <Link className="navbar-brand" to="/following">
+          Following       
+        </Link>
+        <Link className="navbar-brand" to="/myphotos">
+          Photos       
+        </Link>
+        <Link className="navbar-brand" to="/posts">
+          Posts       
+        </Link>
         <NavLinks />
       </div>
     </nav>
