@@ -48,17 +48,17 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand navbar-dark">
       <div className="container navbar-container">
-        <Link className="navbar-brand" to="/profile">
+        <Link className="navbar-nav nav-item text-white" to="/profile">
           Paw Pals
           <i className="fas fa-dog fa-2x" />
         </Link>
-        <Link className="navbar-brand" to="/following">
+        <Link className="text-white" to="/following">
           Following       
         </Link>
-        <Link className="navbar-brand" to="/myphotos">
-          Photos       
+        <Link className="text-white" to="/myphotos">
+          Photos      
         </Link>
-        <Link className="navbar-brand" to="/posts">
+        <Link className="text-white" to="/posts">
           Posts       
         </Link>
         <NavLinks />
