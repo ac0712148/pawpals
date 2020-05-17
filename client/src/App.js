@@ -14,6 +14,7 @@ import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import LandingPage from "./pages/LandingPage/LandingPage";
+import Following from "./pages/Following/Following"
 
 function ProtectedRoute({ children, ...rest }) {
   const { isLoggedIn } = useAuth();
@@ -47,6 +48,10 @@ function App() {
             </Route>
             <ProtectedRoute exact path="/profile">
               <Profile />
+            </ProtectedRoute>
+
+            <ProtectedRoute exact path="/following">
+              <Following />
             </ProtectedRoute>
           </Switch>
         </div>
