@@ -38,7 +38,6 @@ function App() {
           <Route exact path="/landingpage">
               <LandingPage />
             </Route>
-
             <ProtectedRoute exact path="/">
               <Home />
             </ProtectedRoute>
@@ -51,7 +50,6 @@ function App() {
             <ProtectedRoute exact path="/profile">
               <Profile />
             </ProtectedRoute>
-
             <ProtectedRoute exact path="/following">
               <Following />
             </ProtectedRoute>
