@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import logo from "./logo.svg";
 import "./home.css";
 import { useAuth } from "../../utils/auth";
 
+// import Axios from "axios";
+
 function Home() {
   const { user, logout } = useAuth();
   const history = useHistory();
+  
+  // const [file, setFile] = useState({});
 
   const goToEditProfile = () => history.push("/profile");
+
+  //THIS IS TEST CODE FOR UPLOADING A PICTURE
+  // const selectFile = (e) => {
+  //   setFile(e.target.files[0]);
+  // };
+  // const sendFile = async () => {
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+  //   const response = await Axios.post('/api/photos', formData)
+  //   console.log(response)
+  // };
 
   return (
     <div className="App">
@@ -32,6 +47,11 @@ function Home() {
           Logout
         </button>
       </p>
+
+      <hr />
+
+      {/* <input type="file" onChange={selectFile} />
+      <button onClick={sendFile}>Send File</button> */}
     </div>
   );
 }
