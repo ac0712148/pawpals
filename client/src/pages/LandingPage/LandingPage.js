@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 // import "./LandingPage.css";
 
 
-function LandingPage() {
+function LandingPage(props) {
+    console.log(props)
 
     return (
         

@@ -16,49 +16,55 @@ import Navbar from "./components/Navbar";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import Following from "./pages/Following/Following";
 import MyPhotos from "./pages/MyPhotos/MyPhotos";
-import Posts from "./pages/Posts/Posts"
+import Posts from "./pages/Posts/Posts";
 
-function ProtectedRoute({ children, ...rest }) {
+// JSX requires uppercase Components, so we alias the component property to Component using ":"
+function ProtectedRoute({ component: Component, ...rest }) {
   const { isLoggedIn } = useAuth();
-  if (isLoggedIn) {
-    return children;
-  }
-  return <Redirect to="/landingpage" />;
+
+  //THIS IS THE BOILER PLATE
+  // if (isLoggedIn) {
+  //   return children;
+  // }
+  // return <Redirect to="/landingpage" />;
+  // return isLoggedIn ? children : <Redirect to="/landingpage" />;
+
+  //THIS CODE SETS THE ROUTES UP TO KEEP THE BROWSER (PROPS HISTORY)
+  // BOILER PLATE DID NOT DO THIS
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        isLoggedIn ? <Component {...props} /> : <Redirect to="/landingpage" />
+      }
+    />
+  );
 }
 
 function App() {
   return (
     <AuthProvider>
       <Router>
-       
         <div>
           <Navbar />
           <Switch>
-          {/* added this new landing page route */}
-          <Route exact path="/landingpage">
-              <LandingPage />
-            </Route>
-            <ProtectedRoute exact path="/">
-              <Home />
-            </ProtectedRoute>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/signup">
-              <Signup />
-            </Route>
-            <ProtectedRoute exact path="/profile">
-              <Profile />
-            </ProtectedRoute>
-            <ProtectedRoute exact path="/following">
-              <Following />
-            </ProtectedRoute>
-            <ProtectedRoute exact path="/myphotos">
-              <MyPhotos />
-            </ProtectedRoute>
-            <ProtectedRoute exact path="/posts">
-              <Posts />
-            </ProtectedRoute>
+            <Route exact path="/landingpage" component={LandingPage} />
+            {/* <Route exact path="/landingpage" render={props => <LandingPage {...props}/>} /> */}
+
+            <ProtectedRoute exact path="/" component={Home} />
+
+            <Route exact path="/login" component={Login} />
+
+            <Route exact path="/signup" component={Signup} />
+                      
+            <ProtectedRoute exact path="/profile" component={Profile} />
+                        
+            <ProtectedRoute exact path="/following" component={Following} />
+              
+            <ProtectedRoute exact path="/myphotos" component={MyPhotos} />
+            
+            <ProtectedRoute exact path="/posts" component={Posts} />
+          
           </Switch>
         </div>
       </Router>
