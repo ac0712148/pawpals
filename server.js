@@ -29,11 +29,11 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(authRouter, usersRouter, postsRouter, errorMiddleware);
 
-//PART OF THE TEST CODE FROM Home/index.js
-// app.post('/api/photos', function(req, res) {
-//   console.log(req.file);
-//   res.send("Hit route")
-// })
+// PART OF THE TEST CODE FROM Home/index.js
+app.post('/api/photos', function(req, res) {
+  console.log(req.file);
+  res.send("Hit route")
+})
 
 // Send all other requests to react app
 app.get("*", (req, res) => {
