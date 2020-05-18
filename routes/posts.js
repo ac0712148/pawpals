@@ -32,8 +32,19 @@ router.post('/api/post', (req, res) => {
     });
 });
 
+// Delete route deletes the post of a specified user
+router.delete('/api/:id', (req,res) => {
+    db.Post.findById(req.params.id)
+    .then((post) => {
+        post.remove();
+        res.json({ success: true });
+    }).catch((err) => {
+        res.status(404).send("Failed to delete");
+    });
+});
+
 // Patch route to update posts
-// The following things must happend to update a post
+// The following things can happend for when updating
     // Only the owner can update their post
     // 
 
