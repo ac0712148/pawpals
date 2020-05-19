@@ -36,6 +36,10 @@ const UserSchema = new Schema({
   following: {
     type: [String],
   },
+  profilePic: {
+    type: String,
+    default: "",
+  },
 });
 
 // Execute before each user.save() call
