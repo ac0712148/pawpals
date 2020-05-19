@@ -22,13 +22,11 @@ function Profile() {
 
   return (
     <div className="container mt-1">
-      {/* <div className="profile-pic">
-        <h2>Username: {username} <span>| Email: {email}</span></h2>
-      </div> */}
+  
       <div className="card text-white text-justify profile">
         <img src="https://cdn.akc.org/content/hero/puppy_pictures_header.jpg" className="img-fluid" alt="100x100" />
         <div className="card-img-overlay">
-        <h2>Welcome: {username} <span>| Email: {email}</span></h2>
+          <h2>Welcome: {username} <span>| Email: {email}</span></h2>
         </div>
       </div>
 
@@ -43,13 +41,12 @@ function Profile() {
       <div className="card div-background">
         <div className="card-body">
           <h5 className="card-title mb-5"> My Pictures</h5>
-         
           <img src="..." alt="..." className="img-thumbnail" />
           <img src="..." alt="..." className="img-thumbnail" />
           <img src="..." alt="..." className="img-thumbnail" />
           <button type="button" className="btn btn-info btn-sm ml-5">
-                    <Link to="/myphotos">My Photos</Link>
-                </button>
+            <Link to="/myphotos">My Photos</Link>
+          </button>
         </div>
       </div>
 
@@ -63,13 +60,17 @@ function Profile() {
 
       <div className="card div-background">
         <div className="card-body">
-          <h5 className="card-title mb-5">My Friends</h5>
-          <input className="form-control mb-5" type="text" placeholder="A little about you..." />
-          <button type="button" className="btn btn-primary">Update</button>
+          <h5 className="card-title mb-5"> My Friends</h5>
+          <img src="..." alt="..." className="img-thumbnail" />
+          <img src="..." alt="..." className="img-thumbnail" />
+          <img src="..." alt="..." className="img-thumbnail" />
+          <button type="button" className="btn btn-info btn-sm ml-5">
+            <Link to="/Following">My Friends</Link>
+          </button>
         </div>
       </div>
 
-      <div className="div-background mb-5 pt-3 pb-1">
+      <div className="div-background mb-5 pt-3 pb-2">
         <button type="button" className="btn btn-info btn-sm mt-1 align-text">
           <Link to="/">Edit Profile</Link>
         </button>
@@ -84,32 +85,7 @@ function Profile() {
         </button>
 
       </div>
-
-
-
     </div>
-    // <>
-    // <Container>
-    //   <Row>
-    //   <Col xs={6} md={12}>
-    //       <Image className="profile-image" src="https://fox28spokane.com/wp-content/uploads/2020/04/AprilShoe-720x399.jpg" />
-    //   <h1>PROFILE PAGE!</h1>
-    //   <p>Username: {username}</p>
-    //   <p>Email: {email}</p>
-
-    //   </Col>
-
-
-    //   </Row>
-
-
-
-    // </Container>
-    // </>
-
-
-
-
 
   );
 }
