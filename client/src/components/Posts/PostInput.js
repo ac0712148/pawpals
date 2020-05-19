@@ -3,16 +3,14 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
 
 class PostInput extends Component {
-    state = {
-        postText: ''
-    };
+    
     render() {
         return (
             <form
                 className="container"
                 style={{
                 display: "flex",
-                justifyContent: "left",
+                justifyContent: "center",
                 marginTop: '25px'
             }}
                 noValidate
