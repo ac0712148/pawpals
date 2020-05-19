@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 
 // Our Components
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { AuthProvider, useAuth } from "./utils/auth";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
