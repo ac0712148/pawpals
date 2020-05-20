@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import Grid from '@material-ui/core/Grid';
 import axios from "axios";
 import Post from "../../components/Posts/Post"
+import PostInput from '../../components/Posts/PostInput'
+
 
 class Posts extends Component {
     constructor(props) {
@@ -20,7 +22,7 @@ class Posts extends Component {
     }
 
     render() {
-        let i
+        // let i
         let recentPostsMarkup = this.state.posts
             ? (this.state.posts.map((post, i) => <Post key={i} post={post}/>))
             : (
@@ -28,7 +30,11 @@ class Posts extends Component {
             )
         return (
             <div className="posts">
+                {/* <PostInput /> */}
                 <Grid container spacing={2} justify="center" alignItems="center">
+                    <Grid item >
+                        <PostInput />
+                    </Grid>
                     <Grid item sm={8}>
                         {recentPostsMarkup}
                     </Grid>

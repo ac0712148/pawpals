@@ -18,14 +18,17 @@ class PostInput extends Component {
                 <TextField
                     id="standard-basic"
                     style={{
-                    width: "60%"
+                    // width: "60%",
+                    height: "30px",
+                    paddingBottom: "5px"
                 }}
-                    label="PawPost!..."/>
+                    />
                 <Button
                     variant="contained"
                     color="primary"
                     style={{
-                    margin: "3px"
+                    margin: "3px",
+                    height: "25px"
                 }}>
                     <i className="fas fa-angle-right"></i>
                 </Button>
