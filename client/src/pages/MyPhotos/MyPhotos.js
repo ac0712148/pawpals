@@ -12,15 +12,16 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
+// import Link from '@material-ui/core/Link';
+// import { Link } from "react-router-dom";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      {/* <Link color="inherit" href="https://material-ui.com/">
         Paw Pals
-      </Link>{' '}
+      </Link>{' '} */}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -64,6 +65,7 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function MyPhotos() {
   const classes = useStyles();
+  
 
   return (
     <React.Fragment>

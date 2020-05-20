@@ -23,15 +23,7 @@ import NewProfile from "./pages/NewProfilePage/NewProfilePage";
 function ProtectedRoute({ component: Component, ...rest }) {
   const { isLoggedIn } = useAuth();
 
-  //THIS IS THE BOILER PLATE
-  // if (isLoggedIn) {
-  //   return children;
-  // }
-  // return <Redirect to="/landingpage" />;
-  // return isLoggedIn ? children : <Redirect to="/landingpage" />;
 
-  //THIS CODE SETS THE ROUTES UP TO KEEP THE BROWSER (PROPS HISTORY)
-  // BOILER PLATE DID NOT DO THIS
   return (
     <Route
       {...rest}
