@@ -1,29 +1,40 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, {Component} from 'react';
+import Grid from '@material-ui/core/Grid';
+import axios from "axios";
+import Post from "../../components/Posts/Post"
 
-function Posts() {
+class Posts extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {posts: []};
+    }
 
-    return (
-        
-        <div className="container landing-page text-center text-black mt-5">
-            <div className="bg1">               
-                <h1 className="display-4">My Posts</h1>
-               
-                <p className="lead mt-5">Contrary to popular beliet. It has roots in a piece of classNameical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classNameical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-                <button type="button" className="btn btn-info btn-sm">
-                    <Link to="/profile">Back To Profile</Link>
-                </button>
-                <button type="button" className="btn btn-info btn-sm ml-5">
-                    <Link to="/following">Following</Link>
-                </button>
-                <button type="button" className="btn btn-info btn-sm ml-5">
-                    <Link to="/myphotos">My Photos</Link>
-                </button>
+    componentDidMount() {
+        axios
+            .get('/api/post')
+            .then((res) => {
+                console.log(res)
+                this.setState({posts: res.data});
+            })
+            .catch((err) => console.log(err));
+    }
+
+    render() {
+        let i
+        let recentPostsMarkup = this.state.posts
+            ? (this.state.posts.map((post, i) => <Post key={i} post={post}/>))
+            : (
+                <p>Loading...</p>
+            )
+        return (
+            <div className="posts">
+                <Grid container spacing={2} justify="center" alignItems="center">
+                    <Grid item sm={8}>
+                        {recentPostsMarkup}
+                    </Grid>
+                </Grid>
             </div>
-        </div>
-        
-
-    )
+        );
+    }
 }
-
-export default Posts;
+export default Posts
