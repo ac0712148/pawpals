@@ -11,7 +11,11 @@ module.exports = {
           user.verifyPassword(password, (err, isMatch) => {
             if (isMatch && !err) {
               const token = jwt.sign(
-                { id: user._id, email: user.email },
+                {
+                  id: user._id,
+                  email: user.email,
+                  profilePic: user.profilePic,
+                },
                 process.env.SERVER_SECRET,
                 { expiresIn: 129600 }
               ); // Sigining the token
