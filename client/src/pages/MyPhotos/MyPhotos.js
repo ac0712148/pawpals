@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useAuth } from "../../utils/auth";
 // import AppBar from '@material-ui/core/AppBar';
 // import Button from '@material-ui/core/Button';
 // import CameraIcon from '@material-ui/icons/PhotoCamera';
@@ -71,6 +72,11 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 export default function MyPhotos() {
   const classes = useStyles();
 
+  
+  const { user } = useAuth();
+
+  
+
   // THIS IS TEST CODE FOR UPLOADING A PICTURE
   const [file, setFile] = useState({});
 
@@ -82,8 +88,18 @@ export default function MyPhotos() {
   const sendFile = async () => {
     const formData = new FormData();
     formData.append("file", file);
-    const response = await Axios.post('/api/photos', formData)
-    console.log(response)
+    Axios.post('/api/photos', formData)
+    .then(res => {
+      console.log(res.data.Location)
+      console.log(user.id);
+      Axios.patch(`/api/userPhotos/${user.id}`, {
+        photo: res.data.Location
+      })
+      .then((res) => {
+        console.log(res);
+      })
+    })
+    
   };
 
 
