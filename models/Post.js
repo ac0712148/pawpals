@@ -15,8 +15,9 @@ const Schema = mongoose.Schema;
 
 const PostSchema = new Schema({
     authorId: { // Author ID 
-        type: String,
-        required: true
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: "User"
     },
     text: { // The text of the post
         type: String,

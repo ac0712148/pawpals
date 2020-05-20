@@ -6,7 +6,7 @@ const router = express.Router();
 
 // get Route to get all posts, should be in order of latest to oldest
 router.get('/api/post', (req, res) => {
-    db.Post.find().sort({ timestamp: -1 })
+    db.Post.find().populate("authorId", "username").sort({ timestamp: -1 })
     .then((posts) => {
         res.status(200).json(posts);
     });
