@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from "react";
 // import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 // import CameraIcon from '@material-ui/icons/PhotoCamera';
 import Card from '@material-ui/core/Card';
 // import CardActions from '@material-ui/core/CardActions';
@@ -12,15 +12,20 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
+// import Link from '@material-ui/core/Link';
+// import { Link } from "react-router-dom";
+
+// THIS IS TEST CODE FOR UPLOADING A PICTURE
+
+import Axios from "axios";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      {/* <Link color="inherit" href="https://material-ui.com/">
         Paw Pals
-      </Link>{' '}
+      </Link>{' '} */}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -65,6 +70,22 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 export default function MyPhotos() {
   const classes = useStyles();
 
+  // THIS IS TEST CODE FOR UPLOADING A PICTURE
+  const [file, setFile] = useState({});
+
+  // THIS IS TEST CODE FOR UPLOADING A PICTURE
+  const selectFile = (e) => {
+    console.log(e.target.files[0])
+    setFile(e.target.files[0]);
+  };
+  const sendFile = async () => {
+    const formData = new FormData();
+    formData.append("file", file);
+    const response = await Axios.post('/api/photos', formData)
+    console.log(response)
+  };
+
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -89,9 +110,10 @@ export default function MyPhotos() {
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
                 <Grid item>
-                  <Button variant="contained" color="primary">
-                    Upload a Photo
-                  </Button>
+                <input type="file" onChange={selectFile} />
+                </Grid>
+                <Grid item>
+                <button onClick={sendFile}>Send File</button>
                 </Grid>
                 
               </Grid>
