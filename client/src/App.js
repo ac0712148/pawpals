@@ -17,6 +17,7 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import Following from "./pages/Following/Following";
 import MyPhotos from "./pages/MyPhotos/MyPhotos";
 import Posts from "./pages/Posts/Posts";
+import NewProfile from "./pages/NewProfilePage/NewProfilePage";
 
 // JSX requires uppercase Components, so we alias the component property to Component using ":"
 function ProtectedRoute({ component: Component, ...rest }) {
@@ -64,6 +65,8 @@ function App() {
             <ProtectedRoute exact path="/myphotos" component={MyPhotos} />
             
             <ProtectedRoute exact path="/posts" component={Posts} />
+
+            <ProtectedRoute exact path="/newprofile" component={NewProfile} />
           
           </Switch>
         </div>
