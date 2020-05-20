@@ -2,10 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-color: white;
-  /* background: url('https://i.pinimg.com/originals/77/22/19/772219b4640c6ce26eea8c8b105d2276.jpg');
-  background-size: 100%; */
-  
+  background-color: white; 
 }
 
 .btn{
