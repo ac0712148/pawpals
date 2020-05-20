@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cardMedia: {
     paddingTop: '56.25%', // 16:9
+   
   },
   cardContent: {
     flexGrow: 1,
@@ -133,7 +134,7 @@ export default function MyPhotos() {
       {/* Footer */}
       <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
-          Footer
+          Paw Pals
         </Typography>
         <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
           We will give Paw Pals users some info here
