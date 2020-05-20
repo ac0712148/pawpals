@@ -1,33 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useAuth } from "../../utils/auth";
+import API from "./../../utils/API";
+import { Link } from "react-router-dom";
 // import AppBar from '@material-ui/core/AppBar';
 import Button from "@material-ui/core/Button";
 // import CameraIcon from '@material-ui/icons/PhotoCamera';
 import Card from "@material-ui/core/Card";
-// import CardActions from "@material-ui/core/CardActions";
+import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from '@material-ui/core/CardMedia';
+import CardMedia from "@material-ui/core/CardMedia";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 // import Toolbar from '@material-ui/core/Toolbar';
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
 import Avatar from "@material-ui/core/Avatar";
-import Tab from '@material-ui/core/Tab';
-
-
-
+import Tab from "@material-ui/core/Tab";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
+      Copyright © 
+      {/* <Link color="inherit" href="https://material-ui.com/">
         PawPals
-      </Link>{" "}
+      </Link> */}
       {new Date().getFullYear()}
-      {"."}
     </Typography>
   );
 }
@@ -53,9 +51,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
   cardMedia: {
-    paddingTop: '56.25%', // 16:9
+    paddingTop: "56.25%", // 16:9
   },
-  
+
   cardContent: {
     flexGrow: 1,
   },
@@ -71,14 +69,14 @@ const useStyles = makeStyles((theme) => ({
     height: "50px",
     width: "50px",
   },
-//   cardHeading: {
-//     padding: theme.spacing(0, 9, 0),
-//   },
-//   btn: {
-//     padding: theme.spacing(0, 5, 0),
-//     height: '20px'
-    
-//   }
+  //   cardHeading: {
+  //     padding: theme.spacing(0, 9, 0),
+  //   },
+    btn: {
+      padding: theme.spacing(0, 5, 0),
+      height: '20px'
+
+    }
 }));
 
 // const cardsFirstRow = [1, 2];
@@ -86,6 +84,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NewProfile() {
   const classes = useStyles();
+
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const { user } = useAuth();
+
+  useEffect(() => {
+    API.getUser(user.id).then(res => {
+      setUsername(res.data.username);
+      setEmail(res.data.email);
+    });
+  }, [user]);
 
   return (
     <React.Fragment>
@@ -110,8 +119,8 @@ export default function NewProfile() {
                   src="https://www.raisingarizonakids.com/wp-content/uploads/2010/07/black-lab-puppy-face-thumb2.jpg"
                   className={classes.large}
                 />
-                
               </Grid>
+              <h2>Welcome: {username} <span>| Email: {email}</span></h2>
             </Grid>
 
             <Typography
@@ -152,7 +161,7 @@ export default function NewProfile() {
                 </CardContent>
               </Card>
             </Grid>
-            
+
             <Grid item xs={12} sm={6}>
               <Card className={classes.card}>
                 <CardContent className={classes.cardContent}>
@@ -166,55 +175,70 @@ export default function NewProfile() {
                 </CardContent>
               </Card>
             </Grid>
-          
-              <Grid item xs={12} sm={6}>
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image="https://muenstermilling.com/wp-content/uploads/2018/09/pugs.png"
-                    title="Image title"
-                  />
-                  <CardContent className={classes.cardContent}>
-                    {/* <Typography gutterBottom variant="h5" component="h2">
+
+            <Grid item xs={12} sm={6}>
+              <Card className={classes.card}>
+                <CardMedia
+                  className={classes.cardMedia}
+                  image="https://muenstermilling.com/wp-content/uploads/2018/09/pugs.png"
+                  title="Image title"
+                />
+                <CardContent className={classes.cardContent}>
+                  {/* <Typography gutterBottom variant="h5" component="h2">
                     <Button variant="contained" className={classes.btn} justify='center'>
                           Click for more pals
                           </Button>
                     </Typography> */}
-                    <Tab label="View Photos" to="./myphotos" component={Link} />
-                  </CardContent>
-                  
-                </Card>
-              </Grid>           
+                  <Tab label="View Photos" to="/myphotos" component={Link} />
+                </CardContent>
+              </Card>
+            </Grid>
 
             <Grid item xs={12} sm={6}>
               <Card className={classes.card}>
                 <CardContent className={classes.cardContent}>
-                  <Typography gutterBottom variant="h5" component="h2" className={classes.cardHeading}>
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="h2"
+                    className={classes.cardHeading}
+                  >
                     My Paw Pals
                   </Typography>
-                                     
-                      <Avatar
-                        alt="Remy Sharp"
-                        src="https://cdn.mos.cms.futurecdn.net/BwL2586BtvBPywasXXtzwA-320-80.jpeg"
-                        className={classes.medium}
-                      />
-                      <Avatar
-                        alt="Remy Sharp"
-                        src="https://www.lovethispic.com/uploaded_images/19345-Black-And-Brown-Puppy.jpg?2"
-                        className={classes.medium}
-                      />
-                      <Avatar
-                        alt="Remy Sharp"
-                        src="https://minepuppy.com/wp-content/uploads/2018/02/pug-breed-minepuppy.jpg"
-                        className={classes.medium}
-                      />
-                       <Avatar
-                        alt="Remy Sharp"
-                        src="https://minepuppy.com/wp-content/uploads/2018/02/pug-breed-minepuppy.jpg"
-                        className={classes.medium}
-                      />
-                    <Tab label="View All Paw Pals" to="./myphotos" component={Link} />
-                                    
+
+                  <Avatar
+                    alt="Remy Sharp"
+                    src="https://cdn.mos.cms.futurecdn.net/BwL2586BtvBPywasXXtzwA-320-80.jpeg"
+                    className={classes.medium}
+                  />
+                  <Avatar
+                    alt="Remy Sharp"
+                    src="https://www.lovethispic.com/uploaded_images/19345-Black-And-Brown-Puppy.jpg?2"
+                    className={classes.medium}
+                  />
+                  <Avatar
+                    alt="Remy Sharp"
+                    src="https://minepuppy.com/wp-content/uploads/2018/02/pug-breed-minepuppy.jpg"
+                    className={classes.medium}
+                  />
+                  <Avatar
+                    alt="Remy Sharp"
+                    src="https://minepuppy.com/wp-content/uploads/2018/02/pug-breed-minepuppy.jpg"
+                    className={classes.medium}
+                  />
+                  <Tab
+                    label="View All Paw Pals"
+                    to="./following"
+                    component={Link}
+                   
+                  />
+                    <CardActions>
+                    <Button size="small" color="primary">
+                      View
+                    </Button>
+               
+                  </CardActions>
+                  
                 </CardContent>
               </Card>
             </Grid>
@@ -222,9 +246,7 @@ export default function NewProfile() {
         </Container>
       </main>
 
-      <Typography className={classes.root}>
-
-</Typography>
+      <Typography className={classes.root}></Typography>
 
       {/* Footer */}
       <footer className={classes.footer}>
@@ -245,10 +267,3 @@ export default function NewProfile() {
     </React.Fragment>
   );
 }
-
-
-
-
-
-
-

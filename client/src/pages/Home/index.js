@@ -14,7 +14,7 @@ function Home() {
   // THIS IS TEST CODE FOR UPLOADING A PICTURE
   const [file, setFile] = useState({});
 
-  const goToEditProfile = () => history.push("/profile");
+  const goToEditProfile = () => history.push("/newprofile");
 
   // THIS IS TEST CODE FOR UPLOADING A PICTURE
   const selectFile = (e) => {
