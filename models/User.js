@@ -12,6 +12,7 @@ const UserSchema = new Schema({
     type: String,
     required: true,
     unique: true,
+    match: [/.+@.+\..+/, "Please enter a valid e-mail address"],
     trim: true,
     lowercase: true,
     index: {
@@ -25,6 +26,19 @@ const UserSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+  bio: {
+    type: String,
+  },
+  followers: {
+    type: [String],
+  },
+  following: {
+    type: [String],
+  },
+  profilePic: {
+    type: String,
+    default: "",
   },
 });
 
