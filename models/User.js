@@ -40,6 +40,9 @@ const UserSchema = new Schema({
     type: String,
     default: "",
   },
+  userPhotos: {
+    type: [String],
+  }
 });
 
 // Execute before each user.save() call
