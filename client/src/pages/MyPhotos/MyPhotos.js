@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cardMedia: {
     paddingTop: '56.25%', // 16:9
-   
+
   },
   cardContent: {
     flexGrow: 1,
@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MyPhotos() {
-  const classes = useStyles();  
+  const classes = useStyles();
   const { user } = useAuth();
   console.log(user)
 
@@ -85,34 +85,33 @@ export default function MyPhotos() {
     const formData = new FormData();
     formData.append("file", file);
     Axios.post('/api/photos', formData)
-    .then(res => {    
-      Axios.patch(`/api/userPhotos/${user.id}`, {
-        photo: res.data.Location
-        
-      }).then((res) => {
-        // fetchData()
-        console.log(res.data.userPhotos)
-        setPhotos(res.data.userPhotos)
-      })
-      .catch(err => {
+      .then(res => {
+        Axios.patch(`/api/userPhotos/${user.id}`, {
+          photo: res.data.Location
+        }).then((res) => {
+          // fetchData()
+          console.log(res.data.userPhotos)
+          setPhotos(res.data.userPhotos)
+        })
+          .catch(err => {
+            console.log(err)
+          })
+      }).catch(err => {
         console.log(err)
-      })   
-    }) .catch(err => {
-      console.log(err)
-    })
+      })
   };
 
   const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-        const res = await Axios.get(`/api/user/${user.id}`);
-        console.log(res.data)
-        setPhotos(res.data.userPhotos)
+      const res = await Axios.get(`/api/user/${user.id}`);
+      console.log(res.data)
+      setPhotos(res.data.userPhotos)
     }
     fetchData();
-}, []);
-  
+  }, []);
+
 
 
   return (
@@ -139,18 +138,18 @@ export default function MyPhotos() {
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
                 <Grid item>
-                <input type="file" onChange={selectFile} />
+                  <input type="file" onChange={selectFile} />
                 </Grid>
                 <Grid item>
-                <button onClick={sendFile}>Send File</button>
+                  <button onClick={sendFile}>Send File</button>
                 </Grid>
-                
+
               </Grid>
             </div>
           </Container>
         </div>
 
-          {/* {
+        {/* {
             user.userPhotos.map(photo => <img src={photo} />)
           } */}
         <Container className={classes.cardGrid} maxWidth="md">
