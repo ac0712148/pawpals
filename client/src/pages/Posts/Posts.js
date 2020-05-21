@@ -19,13 +19,16 @@ export default function Posts() {
 
     return (
         <div className="posts">
-            <Grid container spacing={2} justify="center">
+            <Grid container justify="center" >
                 <Grid item>
-                    <PostInput/> {posts
-                        ? (posts.map((post, i) => <Post key={i} post={post}/>))
-                        : (
-                            <p>Loading...</p>
-                        )}
+                    <PostInput/>
+                    <div className="post-content" style={{maxWidth: "100%", justifyContent: "center"}}>
+                        {posts
+                            ? (posts.map((post, i) => <Post key={i} post={post}/>))
+                            : (
+                                <p>Loading...</p>
+                            )}
+                    </div>
                 </Grid>
             </Grid>
         </div>
