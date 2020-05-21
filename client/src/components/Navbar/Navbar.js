@@ -27,7 +27,7 @@ function NavLinks() {
   const { isLoggedIn, logout } = useAuth();
   const links = [];
   if (isLoggedIn) {
-    links.push({ text: "Profile", to: "/profile" });
+    links.push({ text: "Profile", to: "/newprofile" });
     links.push({ text: "Logout", onClick: () => logout() });
   } else {
     links.push({ text: "Signup", to: "/signup" });
