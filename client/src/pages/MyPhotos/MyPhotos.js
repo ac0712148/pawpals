@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../../utils/auth";
 // import AppBar from '@material-ui/core/AppBar';
 // import Button from '@material-ui/core/Button';
@@ -67,15 +67,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-
 export default function MyPhotos() {
   const classes = useStyles();  
-  const { user, updateUser } = useAuth();
+  const { user } = useAuth();
   console.log(user)
 
-  
 
   // THIS IS TEST CODE FOR UPLOADING A PICTURE
   const [file, setFile] = useState({});
@@ -89,19 +85,34 @@ export default function MyPhotos() {
     const formData = new FormData();
     formData.append("file", file);
     Axios.post('/api/photos', formData)
-    .then(res => {
-      console.log(res.data.Location)
-      console.log(user._id);
-      Axios.patch(`/api/userPhotos/${user._id}`, {
+    .then(res => {    
+      Axios.patch(`/api/userPhotos/${user.id}`, {
         photo: res.data.Location
+        
+      }).then((res) => {
+        // fetchData()
+        console.log(res.data.userPhotos)
+        setPhotos(res.data.userPhotos)
       })
-      .then((res) => {
-        console.log(res);
-        updateUser(res.data)
-      })
+      .catch(err => {
+        console.log(err)
+      })   
+    }) .catch(err => {
+      console.log(err)
     })
-    
   };
+
+  const [photos, setPhotos] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+        const res = await Axios.get(`/api/user/${user.id}`);
+        console.log(res.data)
+        setPhotos(res.data.userPhotos)
+    }
+    fetchData();
+}, []);
+  
 
 
   return (
@@ -145,12 +156,12 @@ export default function MyPhotos() {
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card) => (
+            {photos.map((card, i) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
+                    image={photos[i]}
                     title="Image title"
                   />
                   {/* <CardContent className={classes.cardContent}>
