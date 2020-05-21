@@ -4,27 +4,14 @@ import Button from '@material-ui/core/Button';
 import { useAuth } from "../../utils/auth";
 import axios from "axios";
 
-export default function PostInput() {
-    const { user } = useAuth();
-    const [textFieldValue,
-        setTextFieldValue] = useState("");
+export default function PostInput({onChange, onSubmit, value}) {
 
-    const handleTextFieldChange = (e) => {
-        setTextFieldValue(e.target.value);
-    };
-
-    const handleSubmit = () => {
-        // setTextFieldValue(e.target.value);
-        console.log("On click value: " + textFieldValue);
-        axios.post('/api/post', {
-            authorId: user.id,
-            text: textFieldValue
-        })
-    };
-
+    
+    
     return (
         <form
             className="container"
+            onSubmit={onSubmit}
             style={{
             display: "flex",
             justifyContent: "center",
@@ -34,8 +21,8 @@ export default function PostInput() {
             noValidate
             autoComplete="off">
             <TextField
-                value={textFieldValue}
-                onChange={handleTextFieldChange}
+                value={value}
+                onChange={onChange}
                 id="standard-basic"
                 style={{
                 width: "90%",
@@ -43,7 +30,7 @@ export default function PostInput() {
             }}
                 label="PawPost!..."/>
             <Button
-                onClick={handleSubmit}
+                type="submit"
                 variant="contained"
                 color="primary"
                 style={{
