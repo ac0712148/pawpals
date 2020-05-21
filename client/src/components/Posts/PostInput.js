@@ -3,7 +3,10 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
 
 class PostInput extends Component {
-    
+    // state =
+
+    // handleClick
+
     render() {
         return (
             <form
@@ -11,24 +14,25 @@ class PostInput extends Component {
                 style={{
                 display: "flex",
                 justifyContent: "center",
-                marginTop: '25px'
+                marginTop: '25px',
+                marginBottom: '25px'
             }}
                 noValidate
                 autoComplete="off">
                 <TextField
                     id="standard-basic"
                     style={{
-                    // width: "60%",
-                    height: "30px",
-                    paddingBottom: "5px"
+                    width: "90%",
+                    height: "45px",
+                    // paddingBottom: "5px"
                 }}
-                    />
+                    label="PawPost!..."/>
                 <Button
                     variant="contained"
                     color="primary"
                     style={{
                     margin: "3px",
-                    height: "25px"
+                    // height: "25px"
                 }}>
                     <i className="fas fa-angle-right"></i>
                 </Button>
