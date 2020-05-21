@@ -170,7 +170,7 @@ export default function NewProfile() {
               <Card className={classes.card}>
                 <CardMedia
                   className={classes.cardMedia}
-                  image="https://muenstermilling.com/wp-content/uploads/2018/09/pugs.png"
+                  image="https://upload.wikimedia.org/wikipedia/commons/d/d9/Collage_of_Nine_Dogs.jpg"
                   title="Image title"
                 />
                 <CardContent className={classes.cardContent}>
