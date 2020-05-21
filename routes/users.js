@@ -210,4 +210,44 @@ router.patch("/api/userPhotos/:id", isAuthenticated, (req, res) => {
     });
 });
 
+//get all userPhotos
+router.get("/api/userPhotos", async (req, res) => {
+  const users = await db.User.find();
+  res.status(200).json(users);
+});
+
+//delete a userPhoto
+router.patch("/api/userPhotos/:id", isAuthenticated, (req, res) => {
+  const { id } = req.params;
+  if (req.user.id !== id) {
+    return res.sendStatus(401);
+  }
+  db.User.findOneAndDelete(
+    { _id: id },
+    {
+      $pull: { userPhotos: req.body.photo },
+    },
+    { new: true, upsert: true, setDefaultsOnInsert: true },
+    (err) => {
+      if (err !== null && err.name === "MongoError" && err.code === 11000) {
+        return res
+          .status(500)
+          .send({ message: "This email is already in use." });
+      }
+    }
+  )
+    .then((user) => {
+      return res.json(user);
+    })
+    .catch((err) => {
+      if (err !== null && err.name === "MongoError" && err.code === 11000) {
+        return res
+          .status(500)
+          .send({ message: "This email is already in use." });
+      }
+      console.log(err);
+      return res.status(500).json({ message: err });
+    });
+});
+
 module.exports = router;
