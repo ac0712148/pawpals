@@ -217,12 +217,12 @@ router.get("/api/userPhotos", async (req, res) => {
 });
 
 //delete a userPhoto
-router.patch("/api/userPhotos/:id", isAuthenticated, (req, res) => {
+router.delete("/api/userPhotos/:id", isAuthenticated, (req, res) => {
   const { id } = req.params;
   if (req.user.id !== id) {
     return res.sendStatus(401);
   }
-  db.User.findOneAndDelete(
+  db.User.findOneAndUpdate(
     { _id: id },
     {
       $pull: { userPhotos: req.body.photo },
