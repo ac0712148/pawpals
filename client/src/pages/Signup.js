@@ -39,7 +39,7 @@ function Signup() {
   };
 
   return (
-    <div classname="container">
+   
   <section className="container-fluid">
     {/* row and justify-content-center class is used to place the form in center */}
     <section className="row justify-content-center">
@@ -89,7 +89,7 @@ function Signup() {
       </section>
     </section>
   </section>
-</div>
+
 
   );
 }
