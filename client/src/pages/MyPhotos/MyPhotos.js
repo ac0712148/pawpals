@@ -69,11 +69,11 @@ const useStyles = makeStyles((theme) => ({
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-export default function MyPhotos() {
-  const classes = useStyles();
 
-  
-  const { user } = useAuth();
+export default function MyPhotos() {
+  const classes = useStyles();  
+  const { user, updateUser } = useAuth();
+  console.log(user)
 
   
 
@@ -91,12 +91,13 @@ export default function MyPhotos() {
     Axios.post('/api/photos', formData)
     .then(res => {
       console.log(res.data.Location)
-      console.log(user.id);
-      Axios.patch(`/api/userPhotos/${user.id}`, {
+      console.log(user._id);
+      Axios.patch(`/api/userPhotos/${user._id}`, {
         photo: res.data.Location
       })
       .then((res) => {
         console.log(res);
+        updateUser(res.data)
       })
     })
     
@@ -137,6 +138,10 @@ export default function MyPhotos() {
             </div>
           </Container>
         </div>
+
+          {/* {
+            user.userPhotos.map(photo => <img src={photo} />)
+          } */}
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>

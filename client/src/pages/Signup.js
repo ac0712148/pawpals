@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import API from "./../utils/API";
 import {useAuth} from "../utils/auth";
-
+import "./Login.css"
 
 function Signup() {
   const [formState, setFormState] = useState({
@@ -39,50 +39,58 @@ function Signup() {
   };
 
   return (
-    <div className="container">
-      <h1>Signup</h1>
-      <form onSubmit={handleFormSubmit}>
-        <div className="form-group">
-          <label htmlFor="username">Username:</label>
-          <input
-            className="form-control"
-            placeholder="Username goes here..."
+    <div classname="container">
+  <section className="container-fluid">
+    {/* row and justify-content-center class is used to place the form in center */}
+    <section className="row justify-content-center">
+      <section className="col-12 col-sm-6 col-md-4">
+        <form className="form-container" onSubmit={handleFormSubmit}>
+
+          <div className="form-group">
+            <h4 className="text-center font-weight-bold text-info"> Sign Up </h4>
+            <label htmlFor="username">Username:</label>
+            <input 
+            className="form-control" 
             name="username"
             type="text"
-            id="username"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email address:</label>
-          <input
-            className="form-control"
-            placeholder="Email goes here..."
+            id="username"           
+            placeholder="Enter Username" 
+            onChange={handleChange}/>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="InputEmail1">Email Address</label>
+            <input 
+            className="form-control" 
             name="email"
-            type="email"
+            type="email" 
             id="email"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="pwd">Password:</label>
-          <input
-            className="form-control"
-            placeholder="Password goes here..."
+            
+            placeholder="Enter email" 
+            onChange={handleChange}/>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="InputPassword1">Password</label>
+            <input 
+            className="form-control" 
             name="password"
             type="password"
-            id="pwd"
-            onChange={handleChange}
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
-      </form>
-      <p>
-        <Link to="/login">Go to Login</Link>
-      </p>
-    </div>
+            id="pwd" 
+            placeholder="Password goes here" 
+            onChange={handleChange}/>
+          </div>
+
+          <button type="submit" className="btn btn-primary btn-block">Submit</button>
+          <div className="form-footer">
+          <Link to="/login">Login here</Link>
+          </div>
+        </form>
+      </section>
+    </section>
+  </section>
+</div>
+
   );
 }
 
