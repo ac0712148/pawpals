@@ -84,17 +84,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NewProfile() {
   const classes = useStyles();
-
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   const { user } = useAuth();
-
-  useEffect(() => {
-    API.getUser(user.id).then(res => {
-      setUsername(res.data.username);
-      setEmail(res.data.email);
-    });
-  }, [user]);
 
   return (
     <React.Fragment>
@@ -120,7 +110,7 @@ export default function NewProfile() {
                   className={classes.large}
                 />
               </Grid>
-              <h2>Name: {username}. <span> email: {email}</span></h2>
+              <h2>Name: {user.username}. <span> email: {user.email}</span></h2>
             </Grid>
 
             <Typography
