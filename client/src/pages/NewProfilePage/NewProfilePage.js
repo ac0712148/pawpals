@@ -120,7 +120,7 @@ export default function NewProfile() {
                   className={classes.large}
                 />
               </Grid>
-              <h2>Welcome: {username} <span>| Email: {email}</span></h2>
+              <h2>Name: {username}. <span> email: {email}</span></h2>
             </Grid>
 
             <Typography
