@@ -26,7 +26,7 @@ function Login(props) {
   };
 
   return (
-    <div classname="container login-container">
+    
   <section className="container-fluid">
     {/* row and justify-content-center class is used to place the form in center */}
     <section className="row justify-content-center">
@@ -69,7 +69,7 @@ function Login(props) {
       </section>
     </section>
   </section>
-</div>
+
 
   );
 }

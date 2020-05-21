@@ -83,9 +83,20 @@ const useStyles = makeStyles((theme) => ({
 // //   const cardsSecondRow = [1, 2];
 
 export default function NewProfile() {
-  const classes = useStyles();
+
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const { user } = useAuth();
 
+  useEffect(() => {
+    API.getUser(user.id).then(res => {
+      setUsername(res.data.username);
+      setEmail(res.data.email);
+    });
+  }, [user]);
+
+  const classes = useStyles();
+  
   return (
     <React.Fragment>
       <CssBaseline />
@@ -110,18 +121,16 @@ export default function NewProfile() {
                   className={classes.large}
                 />
               </Grid>
-              <h2>Name: {user.username}. <span> email: {user.email}</span></h2>
+              <h2>Name: {username}: <span> email: {email}</span></h2>
             </Grid>
 
             <Typography
               variant="h5"
               align="center"
               color="textSecondary"
-              paragraph
+              // paragraph
             >
-              This is a little bio about me and all of my Paw Pals. I love
-              chewing on furniture and shoes but I'd much rather spend my time
-              chasing my friends on the beach or running through the mountains.
+              
             </Typography>
 
             <div className={classes.heroButtons}>
