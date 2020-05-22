@@ -12,6 +12,8 @@ import Container from '@material-ui/core/Container';
 
 import Axios from "axios";
 
+import Axios from "axios";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
