@@ -3,11 +3,9 @@ import {makeStyles} from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-// import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
-// import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import {red} from '@material-ui/core/colors';
@@ -42,9 +40,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Post(props) {
-    // console.log(props)
     const {post, id} = props
-    // console.log(post)
     const classes = useStyles();
     const [expanded,
         setExpanded] = React.useState(false);
@@ -86,7 +82,6 @@ export default function Post(props) {
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                        {/* <Typography paragraph>Comments go here</Typography> */}
                         <Comments post={post}/>
                     </CardContent>
                 </Collapse>

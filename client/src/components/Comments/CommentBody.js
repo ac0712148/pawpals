@@ -1,11 +1,8 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-// import Chip from '@material-ui/core/Chip';
-// import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-// import CommentInput from './CommentInput'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,10 +26,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CommentBody(props) {
     const { comment } = props;
-    // console.log(comment)
     const classes = useStyles();
     
-
     return (
         <div>
             <Divider/>

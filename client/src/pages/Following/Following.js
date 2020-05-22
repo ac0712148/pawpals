@@ -12,8 +12,6 @@ import Container from '@material-ui/core/Container';
 
 import Axios from "axios";
 
-import Axios from "axios";
-
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -93,7 +91,6 @@ export default function Following() {
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
-            {console.log(users)}
             {users.map((card, i) => (
               <Grid item key={i} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
