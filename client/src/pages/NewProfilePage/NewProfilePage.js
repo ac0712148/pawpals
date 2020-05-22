@@ -86,12 +86,17 @@ export default function NewProfile() {
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+
+  const [userPhoto, setProfile] =useState("");
+  
   const { user } = useAuth();
 
   useEffect(() => {
     API.getUser(user.id).then(res => {
+      console.log(res)
       setUsername(res.data.username);
       setEmail(res.data.email);
+      setProfile(res.data.userPhotos)
     });
   }, [user]);
 
@@ -117,7 +122,7 @@ export default function NewProfile() {
               <Grid item>
                 <Avatar
                   alt="Remy Sharp"
-                  src="https://www.raisingarizonakids.com/wp-content/uploads/2010/07/black-lab-puppy-face-thumb2.jpg"
+                  src={userPhoto[0]}
                   className={classes.large}
                 />
               </Grid>
