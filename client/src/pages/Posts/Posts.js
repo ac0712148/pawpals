@@ -27,8 +27,6 @@ export default function Posts() {
     };
 
     const handleSubmitNewPost = (e) => {
-        // setTextFieldValue(e.target.value);
-        console.log("On click value: " + textFieldValue);
         e.preventDefault()
         axios
             .post('/api/post', {

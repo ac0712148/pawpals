@@ -1,21 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../utils/auth";
-// import AppBar from '@material-ui/core/AppBar';
-// import Button from '@material-ui/core/Button';
-// import CameraIcon from '@material-ui/icons/PhotoCamera';
 import Card from '@material-ui/core/Card';
-// import CardActions from '@material-ui/core/CardActions';
-// import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-// import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import API from "../../utils/API"
-// import Link from '@material-ui/core/Link';
-// import { Link } from "react-router-dom";
 
 // THIS IS TEST CODE FOR UPLOADING A PICTURE
 
@@ -61,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   footer: {
-    // backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
   },
 }));
@@ -69,15 +60,10 @@ const useStyles = makeStyles((theme) => ({
 export default function MyPhotos() {
   const classes = useStyles();
   const { user } = useAuth();
-  // console.log(user)
 
-
-  // THIS IS TEST CODE FOR UPLOADING A PICTURE
   const [file, setFile] = useState({});
 
-  // THIS IS TEST CODE FOR UPLOADING A PICTURE
   const selectFile = (e) => {
-    // console.log(e.target.files[0])
     if(!e.target.files[0]){
       return;
     }
@@ -88,10 +74,8 @@ export default function MyPhotos() {
     formData.append("file", file);
     API.addPhoto(formData)
       .then(res => {
-        console.log(res.data.Location)
         API.addUserPhotos(user.id, res.data.Location)
         .then((res) => {
-          console.log(res)
           setPhotos(res.data.userPhotos)
         }).catch(err => {
             console.log(err)
@@ -106,7 +90,6 @@ export default function MyPhotos() {
   useEffect(() => {
     async function fetchData() {
       const res = await API.getUser(user.id);
-      // console.log(res.data)
       setPhotos(res.data.userPhotos)
     }
     fetchData();
@@ -141,9 +124,6 @@ export default function MyPhotos() {
           </Container>
         </div>
 
-        {/* {
-            user.userPhotos.map(photo => <img src={photo} />)
-          } */}
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>

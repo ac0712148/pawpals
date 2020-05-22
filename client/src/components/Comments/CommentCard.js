@@ -1,9 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-// import Chip from '@material-ui/core/Chip'; import Button from
-// '@material-ui/core/Button'; import Grid from '@material-ui/core/Grid'; import
-// Divider from '@material-ui/core/Divider'; import Typography from
-// '@material-ui/core/Typography';
 import CommentInput from './CommentInput'
 import CommentBody from "./CommentBody"
 import axios from "axios";
@@ -37,8 +33,6 @@ export default function CommentCard(props) {
     const [comments,
         setComments] = useState([post.comments]);
 
-    // async function fetchData() {}
-
     const [textFieldValue,
         setTextFieldValue] = useState(""); // This is the text
     const [username,
@@ -46,7 +40,6 @@ export default function CommentCard(props) {
 
     const newCommentInputChange = (e) => {
         setTextFieldValue(e.target.value)
-        // console.log(e.target.value)
     };
 
     
@@ -69,7 +62,6 @@ export default function CommentCard(props) {
     }, [fetchData, user.id]);
 
     const handleSubmitNewComment = (e) => {
-        console.log("On click value: " + textFieldValue);
         e.preventDefault();
         axios
             .patch(`/api/post/${post._id}`, {

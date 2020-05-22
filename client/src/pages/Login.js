@@ -4,7 +4,6 @@ import { useAuth } from "../utils/auth";
 import "./Login.css"
 
 function Login(props) {
-  // console.log(props)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { isLoggedIn, login } = useAuth();
@@ -28,7 +27,6 @@ function Login(props) {
   return (
     
   <section className="container-fluid">
-    {/* row and justify-content-center class is used to place the form in center */}
     <section className="row justify-content-center">
       <section className="col-12 col-sm-6 col-md-4">
 
