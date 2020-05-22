@@ -12,6 +12,14 @@ router.get('/api/post', (req, res) => {
     });
 });
 
+// Get a specific post using post id
+router.get('/api/post/:id', (req, res) => {
+    db.Post.findById(req.params.id)
+    .then((post) => {
+        res.status(200).json(post);
+    });
+});
+
 // Create a new post
 // New post consist of:
     // authorId = r.b.authorId, Empty comments list, empty likers list,
