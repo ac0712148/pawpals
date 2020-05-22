@@ -55,7 +55,7 @@ export default function Posts() {
                         justifyContent: "center"
                     }}>
                         {posts
-                            ? (posts.map((post, i) => <Post key={i} post={post}/>))
+                            ? (posts.map((post, i) => <Post key={i} post={post} id={post._id}/>))
                             : (
                                 <p>Loading...</p>
                             )}
