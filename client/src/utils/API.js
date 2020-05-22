@@ -7,5 +7,11 @@ export default {
   // sign up a user to our service
   signUpUser: (username, email, password) => {
     return axios.post("api/signup", {username: username, email: email, password: password});
+  },
+  addPhoto: (newPhoto) => {
+    return axios.post(`/api/photos/`, newPhoto)
+  },
+  addUserPhotos: (userid, photoUrl) => {
+    return axios.patch(`/api/userPhotos/${userid}`, {photo: photoUrl})
   }
 };
