@@ -1,7 +1,7 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import Chip from '@material-ui/core/Chip';
-import Button from '@material-ui/core/Button';
+// import Chip from '@material-ui/core/Chip';
+// import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
@@ -27,10 +27,11 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function CommentBody() {
-    // const {post} = props;
-    // console.log(post.comments)
+export default function CommentBody(props) {
+    const { comment } = props;
+    // console.log(comment)
     const classes = useStyles();
+    
 
     return (
         <div>
@@ -39,13 +40,12 @@ export default function CommentBody() {
                 <Grid container alignItems="center">
                     <Grid item xs>
                         <Typography gutterBottom>
-                            Toothbrush
+                            {comment.commenterName}
                         </Typography>
                     </Grid>
                 </Grid>
                 <Typography color="textSecondary" variant="body2">
-                    Pinstriped cornflower blue cotton blouse takes you on a walk to the park or just
-                    down the hall.
+                    {comment.text}
                 </Typography>
             </div>
         </div>
