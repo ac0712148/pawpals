@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import { useAuth } from "../../utils/auth";
 // import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 // import CameraIcon from '@material-ui/icons/PhotoCamera';
@@ -14,6 +15,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 // import Link from '@material-ui/core/Link';
 // import { Link } from "react-router-dom";
+
+import Axios from "axios";
 
 function Copyright() {
   return (
@@ -64,6 +67,20 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function Following() {
   const classes = useStyles();
+  const { user } = useAuth();
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    function fetchData() {
+      Axios.get(`/api/users/`)
+        .then(res => {          
+          setUsers(res.data)
+        }).then(() => {
+          console.log(users)          
+        })
+    }
+    fetchData();
+  }, []);
 
   return (
     <React.Fragment>
@@ -83,7 +100,7 @@ export default function Following() {
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
               My Paw Pals
             </Typography>
-          
+
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
                 <Grid item>
@@ -98,20 +115,21 @@ export default function Following() {
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+            {console.log(users)}
+            {users.map((card, i) => (
+              <Grid item key={i} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
+                    image={card.userPhotos[0]}
                     title="Image title"
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      username
+                      {card.username}
                     </Typography>
                     <Typography>
-                      This is a little information about my friend
+                      This is a little information about me.
                     </Typography>
                   </CardContent>
                   <CardActions>
@@ -134,7 +152,7 @@ export default function Following() {
           Paw Pals
         </Typography>
         <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-        We will give Paw Pals users some info here
+          We will give Paw Pals users some info here
         </Typography>
         <Copyright />
       </footer>
