@@ -68,37 +68,16 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 export default function Following() {
   const classes = useStyles();
   const { user } = useAuth();
-  console.log(user)
-
-
-
-  // const selectFollowers = (e) => {
-  //   console.log(e)
-  //   // setFile(e.target.followers[0]);
-  // };
-
-  function viewFollowers() {
-    Axios.get(`/api/followers/${user.id}`)
-      .then(res => {
-        console.log(res)
-        
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-  //not sure if i need this??
-  viewFollowers()
-
-  const [followers, setFollowers] = useState([]);
-
-  //   // selectFollowers();
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    async function fetchData() {
-      const res = await Axios.get(`/api/followers/${user.id}`);
-      console.log(res.data)
-      // setFollowers(res.data)
+    function fetchData() {
+      Axios.get(`/api/users/`)
+        .then(res => {          
+          setUsers(res.data)
+        }).then(() => {
+          console.log(users)          
+        })
     }
     fetchData();
   }, []);
@@ -136,20 +115,21 @@ export default function Following() {
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {followers.map((card, i) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+            {console.log(users)}
+            {users.map((card, i) => (
+              <Grid item key={i} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image={followers[i]}
+                    image={card.userPhotos[0]}
                     title="Image title"
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      username
+                      {card.username}
                     </Typography>
                     <Typography>
-                      This is a little information about my friend
+                      This is a little information about me.
                     </Typography>
                   </CardContent>
                   <CardActions>
