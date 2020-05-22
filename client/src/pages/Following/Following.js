@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import { useAuth } from "../../utils/auth";
 // import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 // import CameraIcon from '@material-ui/icons/PhotoCamera';
@@ -14,6 +15,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 // import Link from '@material-ui/core/Link';
 // import { Link } from "react-router-dom";
+
+import Axios from "axios";
 
 function Copyright() {
   return (
@@ -64,6 +67,41 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function Following() {
   const classes = useStyles();
+  const { user } = useAuth();
+  console.log(user)
+
+
+
+  // const selectFollowers = (e) => {
+  //   console.log(e)
+  //   // setFile(e.target.followers[0]);
+  // };
+
+  function viewFollowers() {
+    Axios.get(`/api/followers/${user.id}`)
+      .then(res => {
+        console.log(res)
+        
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+  //not sure if i need this??
+  viewFollowers()
+
+  const [followers, setFollowers] = useState([]);
+
+  //   // selectFollowers();
+
+  useEffect(() => {
+    async function fetchData() {
+      const res = await Axios.get(`/api/followers/${user.id}`);
+      console.log(res.data)
+      // setFollowers(res.data)
+    }
+    fetchData();
+  }, []);
 
   return (
     <React.Fragment>
@@ -83,7 +121,7 @@ export default function Following() {
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
               My Paw Pals
             </Typography>
-          
+
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
                 <Grid item>
@@ -98,12 +136,12 @@ export default function Following() {
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card) => (
+            {followers.map((card, i) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
+                    image={followers[i]}
                     title="Image title"
                   />
                   <CardContent className={classes.cardContent}>
@@ -134,7 +172,7 @@ export default function Following() {
           Paw Pals
         </Typography>
         <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-        We will give Paw Pals users some info here
+          We will give Paw Pals users some info here
         </Typography>
         <Copyright />
       </footer>

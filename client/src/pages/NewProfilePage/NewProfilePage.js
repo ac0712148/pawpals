@@ -86,9 +86,7 @@ export default function NewProfile() {
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-
-  const [userPhoto, setProfile] =useState("");
-  
+  const [userPhoto, setProfile] =useState(""); 
   const { user } = useAuth();
 
   useEffect(() => {
