@@ -13,12 +13,11 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import API from "../../utils/API"
 // import Link from '@material-ui/core/Link';
 // import { Link } from "react-router-dom";
 
 // THIS IS TEST CODE FOR UPLOADING A PICTURE
-
-import Axios from "axios";
 
 function Copyright() {
   return (
@@ -70,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 export default function MyPhotos() {
   const classes = useStyles();
   const { user } = useAuth();
-  console.log(user)
+  // console.log(user)
 
 
   // THIS IS TEST CODE FOR UPLOADING A PICTURE
@@ -78,22 +77,23 @@ export default function MyPhotos() {
 
   // THIS IS TEST CODE FOR UPLOADING A PICTURE
   const selectFile = (e) => {
-    console.log(e.target.files[0])
+    // console.log(e.target.files[0])
+    if(!e.target.files[0]){
+      return;
+    }
     setFile(e.target.files[0]);
   };
   const sendFile = async () => {
     const formData = new FormData();
     formData.append("file", file);
-    Axios.post('/api/photos', formData)
+    API.addPhoto(formData)
       .then(res => {
-        Axios.patch(`/api/userPhotos/${user.id}`, {
-          photo: res.data.Location
-        }).then((res) => {
-          // fetchData()
-          console.log(res.data.userPhotos)
+        console.log(res.data.Location)
+        API.addUserPhotos(user.id, res.data.Location)
+        .then((res) => {
+          console.log(res)
           setPhotos(res.data.userPhotos)
-        })
-          .catch(err => {
+        }).catch(err => {
             console.log(err)
           })
       }).catch(err => {
@@ -105,26 +105,18 @@ export default function MyPhotos() {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await Axios.get(`/api/user/${user.id}`);
-      console.log(res.data)
+      const res = await API.getUser(user.id);
+      // console.log(res.data)
       setPhotos(res.data.userPhotos)
     }
     fetchData();
-  }, []);
+  }, [user.id]);
 
 
 
   return (
     <React.Fragment>
       <CssBaseline />
-      {/* <AppBar position="relative">
-        <Toolbar>
-          <CameraIcon className={classes.icon} />
-          <Typography variant="h6" color="inherit" noWrap>
-            Album layout
-          </Typography>
-        </Toolbar>
-      </AppBar> */}
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
@@ -155,30 +147,14 @@ export default function MyPhotos() {
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {photos.map((card, i) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+            {photos.map((url) => (
+              <Grid item key={url} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image={photos[i]}
+                    image={url}
                     title="Image title"
                   />
-                  {/* <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Heading
-                    </Typography>
-                    <Typography>
-                      This is a media card. You can use this section to describe the content.
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      View
-                    </Button>
-                    <Button size="small" color="primary">
-                      Edit
-                    </Button>
-                  </CardActions> */}
                 </Card>
               </Grid>
             ))}
