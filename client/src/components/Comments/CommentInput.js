@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 // import { useAuth } from "../../utils/auth";
 // import axios from "axios";
 
-export default function PostInput({onChange, onSubmit, value}) {
+export default function CommentInput({onChange, onSubmit, value}) {
 
     
     
@@ -15,8 +15,8 @@ export default function PostInput({onChange, onSubmit, value}) {
             style={{
             display: "flex",
             justifyContent: "center",
-            marginTop: '25px',
-            marginBottom: '25px'
+            marginTop: '15px',
+            marginBottom: '15px'
         }}
             noValidate
             autoComplete="off">
@@ -25,10 +25,10 @@ export default function PostInput({onChange, onSubmit, value}) {
                 onChange={onChange}
                 id="standard-basic"
                 style={{
-                width: "90%",
+                width: "80%",
                 height: "45px"
             }}
-                label="PawPost!..."/>
+                label="What do you think..."/>
             <Button
                 type="submit"
                 variant="contained"

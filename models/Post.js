@@ -31,6 +31,7 @@ const PostSchema = new Schema({
     comments: {
         type: [{
             commenterId: String,
+            commenterName: String,
             text: String,
             timeStamp: Number
         }],
