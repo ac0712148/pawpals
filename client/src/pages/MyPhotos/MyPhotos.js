@@ -9,15 +9,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import API from "../../utils/API"
 
-// THIS IS TEST CODE FOR UPLOADING A PICTURE
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      {/* <Link color="inherit" href="https://material-ui.com/">
-        Paw Pals
-      </Link>{' '} */}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -135,6 +133,9 @@ export default function MyPhotos() {
                     image={url}
                     title="Image title"
                   />
+                  <IconButton aria-label="delete" className={classes.margin}>
+          <DeleteIcon fontSize="small" />
+        </IconButton>
                 </Card>
               </Grid>
             ))}
