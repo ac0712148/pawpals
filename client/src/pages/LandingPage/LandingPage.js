@@ -1,7 +1,7 @@
 import React from "react";
 // import { useAuth } from "../../utils/auth";
 // import API from "./../../utils/API";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 // import CardActions from "@material-ui/core/CardActions";
@@ -133,8 +133,8 @@ function LandingPage() {
                   <div className={classes.heroButtons}>
               <Grid container spacing={1} justify="center">
                 <Grid item>
-                  <Button variant="outlined" color="primary">
-                    Signup
+                <Button variant="outlined" color="primary">
+                    <Link className="text-white" to="/signup">Signup</Link>
                   </Button>
                 </Grid>
               </Grid>
@@ -145,7 +145,7 @@ function LandingPage() {
               <Grid container spacing={1} justify="center">
                 <Grid item>
                   <Button variant="outlined" color="primary">
-                    Login
+                    <Link className="text-white" to="/login">Login</Link>
                   </Button>
                 </Grid>
               </Grid>
