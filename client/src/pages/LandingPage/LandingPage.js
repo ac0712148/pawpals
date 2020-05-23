@@ -1,8 +1,8 @@
 import React from "react";
 // import { useAuth } from "../../utils/auth";
 // import API from "./../../utils/API";
-// import { Link } from "react-router-dom";
-// import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 // import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -36,7 +36,7 @@ function Copyright() {
       marginTop: theme.spacing(4),
     },
     cardGrid: {
-      paddingTop: theme.spacing(0),
+      paddingTop: theme.spacing(4),
       paddingBottom: theme.spacing(4),
     },
     card: {
@@ -106,18 +106,19 @@ function LandingPage() {
               <Card className={classes.card}>
                 <CardContent className={classes.cardContent}>
                   <Typography gutterBottom variant="h5" component="h2" align="center">
-                    About Pawpals
+                    About Pawpal
                   </Typography>
                   <Typography align="center">
-                  Pawpal's is a social network application dedicated for dogs and dog lovers to interact. 
+                  Pawpal is a social network application for dogs and dog lovers to interact. 
                   <br></br>
                   <br></br>
-                  User's will be able to create posts about doggy things, give each other a "woof!", 
-                  post photos, as well as view their doggy and human friends!
+                  We aim to provide a user friendly environment for dog lovers to share and post about their furry friends
                   </Typography>
                 </CardContent>
               </Card>
             </Grid>
+
+            <br></br>
 
             
         <Grid  item xs={12} sm={12} align="center"> 
@@ -126,26 +127,29 @@ function LandingPage() {
                   <Typography gutterBottom variant="h5" component="h2" align="center">
                     How to use Pawpals!
                   </Typography>
-                  <Typography align="center">
                   
-                  <br></br>
-                  Signup
-                  <br></br>
-                  <br></br>
-                  Login
+                <div className={classes.heroButtons}>
+                  <Button variant="outlined" color="primary">
+                    <Link className="text-white" to="/signup">Signup</Link>
+                  </Button>
+                </div>
+        
+                 
+                  <div className={classes.heroButtons}>
+                <Button variant="outlined" color="primary">
+                    <Link className="text-white" to="/login">Login</Link>
+                  </Button>
+                </div>
+
                   <br></br>
                   <br></br>
                   Explore!
                   <br></br>
                   <br></br>
-                  For a more detailed guide on how to get started and navigate please see our live demonstation on github found here: *example link*
-                  </Typography>
+                  
                 </CardContent>
               </Card>
             </Grid>
-
-
-        
 
         <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
@@ -157,7 +161,7 @@ function LandingPage() {
           color="textSecondary"
           component="p"
         >
-          We will give Paw Pals users some info here
+          <span>github | contact | signup | login</span>
         </Typography>
         <Copyright />
       </footer>
