@@ -23,6 +23,56 @@ function Copyright() {
       </Typography>
     );
   }
+
+  const useStyles = makeStyles((theme) => ({
+    icon: {
+      marginRight: theme.spacing(2),
+    },
+    heroContent: {
+      backgroundColor: theme.palette.background.white,
+      padding: theme.spacing(8, 0, 6),
+    },
+    heroButtons: {
+      marginTop: theme.spacing(4),
+    },
+    cardGrid: {
+      paddingTop: theme.spacing(0),
+      paddingBottom: theme.spacing(4),
+    },
+    card: {
+      height: "300px",
+      display: "flex",
+      flexDirection: "column",
+    },
+    cardMedia: {
+      paddingTop: "56.25%", // 16:9
+      paddingBottom: "56.25%"
+    },
+  
+    cardContent: {
+      flexGrow: 1,
+    },
+    footer: {
+      // backgroundColor: theme.palette.background.paper,
+      padding: theme.spacing(6),
+    },
+    large: {
+      height: "300px",
+      width: "300px",
+    },
+    medium: {
+      height: "50px",
+      width: "50px",
+    },
+    //   cardHeading: {
+    //     padding: theme.spacing(0, 9, 0),
+    //   },
+      btn: {
+        padding: theme.spacing(0, 5, 0),
+        height: '20px'
+  
+      }
+  }));
   
 
 function LandingPage() {
