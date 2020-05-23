@@ -21,7 +21,7 @@ export default function Sidebar(props) {
   const {  description, social, title } = props;
 
   return (
-    <Grid item xs={12} md={4}>
+    <Grid  item xs={12} md={4}>
       <Paper elevation={0} className={classes.sidebarAboutBox}>
         <Typography variant="h6" gutterBottom>
           {title}
@@ -39,8 +39,8 @@ export default function Sidebar(props) {
       <Typography variant="h6" gutterBottom className={classes.sidebarSection}>
         Social
       </Typography>
-      {social.map((network) => (
-        <Link display="block" variant="body1" href="#" key={network}>
+      {social.map((network, index) => (
+        <Link display="block" variant="body1" href="#" key={index}>
           <Grid container direction="row" spacing={1} alignItems="center">
             <Grid item>
               <network.icon />
