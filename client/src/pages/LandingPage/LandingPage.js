@@ -15,6 +15,16 @@ import Container from "@material-ui/core/Container";
 // import Avatar from "@material-ui/core/Avatar";
 // import Tab from "@material-ui/core/Tab";
 
+function Copyright() {
+    return (
+      <Typography variant="body2" color="textSecondary" align="center">
+        Copyright © 
+        {new Date().getFullYear()}
+      </Typography>
+    );
+  }
+  
+
 function LandingPage() {
 
     return (
