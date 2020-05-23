@@ -5,10 +5,10 @@ import { useAuth } from "../../utils/auth";
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+// import Typography from '@material-ui/core/Typography';
+// import Button from '@material-ui/core/Button';
+// import IconButton from '@material-ui/core/IconButton';
+// import MenuIcon from '@material-ui/icons/Menu';
 
 const createLink = ({ text, to, ...rest }) => {
   const className = "nav-link";
@@ -31,30 +31,30 @@ const createLink = ({ text, to, ...rest }) => {
   );
 };
 
-function NavLinks() {
-  const { isLoggedIn, logout } = useAuth();
-  const links = [];
-  if (isLoggedIn) {
-    links.push({ text: "Profile", to: "/newprofile" });
-    links.push({ text: "Logout", onClick: () => logout() });
-    links.push({ text: "Following", to: "/following" });
-    links.push({ text: "MyPhotos", to: "/myphotos" });
-    links.push({ text: "Forum", to: "/newprofile" });
+// function NavLinks() {
+//   const { isLoggedIn, logout } = useAuth();
+//   const links = [];
+//   if (isLoggedIn) {
+//     links.push({ text: "Profile", to: "/newprofile" });
+//     links.push({ text: "Logout", onClick: () => logout() });
+//     links.push({ text: "Following", to: "/following" });
+//     links.push({ text: "MyPhotos", to: "/myphotos" });
+//     links.push({ text: "Forum", to: "/newprofile" });
     
-  } else {
-    links.push({ text: "Signup", to: "/signup" });
-    links.push({ text: "Login", to: "/login" });
-  }
-  return (
-    <ul className="navbar-nav">
-      {links.map((link, i) => (
-        <li key={i} className="nav-item">
-          {createLink(link)}
-        </li>
-      ))}
-    </ul>
-  );
-}
+//   } else {
+//     links.push({ text: "Signup", to: "/signup" });
+//     links.push({ text: "Login", to: "/login" });
+//   }
+//   return (
+//     <ul className="navbar-nav">
+//       {links.map((link, i) => (
+//         <li key={i} className="nav-item">
+//           {createLink(link)}
+//         </li>
+//       ))}
+//     </ul>
+//   );
+// }
 
 const useStyles = makeStyles((theme) => ({
   root: {
