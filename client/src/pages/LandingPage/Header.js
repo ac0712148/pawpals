@@ -5,12 +5,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 // import Button from '@material-ui/core/Button';
 // import IconButton from '@material-ui/core/IconButton';
 // import SearchIcon from '@material-ui/icons/Search';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 // import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
+    borderBottom: `0px solid ${theme.palette.divider}`,
   },
   toolbarTitle: {
     flex: 1,
@@ -27,13 +27,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header(props) {
   const classes = useStyles();
-  const {  title } = props;
+  // const { title } = props;
 
   return (
     <React.Fragment>
       <Toolbar className={classes.toolbar}>
         
-        <Typography
+        {/* <Typography
           component="h2"
           variant="h5"
           color="inherit"
@@ -42,7 +42,7 @@ export default function Header(props) {
           className={classes.toolbarTitle}
         >
           {title}
-        </Typography>
+        </Typography> */}
         {/* <IconButton>
           <SearchIcon />
         </IconButton> */}

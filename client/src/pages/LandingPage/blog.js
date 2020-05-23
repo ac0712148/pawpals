@@ -6,7 +6,7 @@ import Container from '@material-ui/core/Container';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
-import Header from './Header';
+// import Header from './Header';
 import MainFeaturedPost from './MainFeaturedPost';
 import FeaturedPost from './FeaturedPost';
 // import Main from './Main';
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const sections = [
+// const sections = [
   // { title: 'Technology', url: '#' },
   // { title: 'Design', url: '#' },
   // { title: 'Culture', url: '#' },
@@ -34,7 +34,7 @@ const sections = [
   // { title: 'Health', url: '#' },
   // { title: 'Style', url: '#' },
   // { title: 'Travel', url: '#' },
-];
+// ];
 
 const mainFeaturedPost = {
   title: 'Pawpals!',
@@ -100,11 +100,13 @@ export default function Blog() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container maxWidth="lg">
-        <Header title="" sections={sections} />
+      <Container maxWidth="lg" spacing={1}>
+        {/* <Header/> */}
         <main>
+        <br></br>
           <MainFeaturedPost post={mainFeaturedPost} />
-          <Grid container spacing={4}>
+       
+          <Grid container spacing={5}>
             {featuredPosts.map((landingPageCard, index1) => (
               <FeaturedPost key={index1} landingPageCard={landingPageCard} />
             ))}
