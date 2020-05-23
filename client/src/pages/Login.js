@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import { useAuth } from "../utils/auth";
-import "./Login.css"
+// import "./Login.css"
+
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import PetsIcon from '@material-ui/icons/Pets';
+
 
 function Login(props) {
   const [email, setEmail] = useState("");
@@ -25,7 +33,50 @@ function Login(props) {
   };
 
   return (
-    
+    <div>
+      <Grid container className="form">
+        <Grid item sm />
+        <Grid item sm>
+          <PetsIcon />
+          <Typography variant="h2">Login</Typography>
+          <form noValidate className="form-container" onSubmit={handleFormSubmit}>
+            <TextField 
+              id="email"
+              name="email"
+              type="email"
+              label="Email"
+              className="form-control"
+              fullWidth
+              value={email}
+              onChange={({ target }) => setEmail(target.value)}
+            />
+            <TextField 
+              id="pwd"
+              name="password"
+              type="password"
+              label="Password"
+              className="form-control"
+              fullWidth
+              value={password}
+              onChange={({ target }) => setPassword(target.value)}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              className="button"
+            >
+              Login
+            </Button>
+            <br />
+            <small>
+              Don't have an account ? SignUp <Link to="/signup">here</Link>
+            </small>
+          </form>
+        </Grid>
+        <Grid item sm />
+      </Grid>
+      {/* <br />
   <section className="container-fluid">
     <section className="row justify-content-center">
       <section className="col-12 col-sm-6 col-md-4">
@@ -66,8 +117,8 @@ function Login(props) {
         
       </section>
     </section>
-  </section>
-
+  </section> */}
+  </div>
 
   );
 }
