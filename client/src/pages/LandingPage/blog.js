@@ -15,6 +15,7 @@ import Footer from './Footer';
 // import post1 from './blog-post.1.md';
 // import post2 from './blog-post.2.md';
 // import post3 from './blog-post.3.md';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -41,7 +42,11 @@ const mainFeaturedPost = {
   //   "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
   image: 'https://images.unsplash.com/photo-1525253013412-55c1a69a5738?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80',
   imgText: 'main image description',
-  linkText: 'signup',
+  linkText:
+    <Button variant="contained" size="small">
+          Sign up
+        </Button>
+  
 };
 
 const featuredPosts = [
@@ -96,7 +101,7 @@ export default function Blog() {
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="lg">
-        <Header title="Pawpals" sections={sections} />
+        <Header title="" sections={sections} />
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
           <Grid container spacing={4}>
