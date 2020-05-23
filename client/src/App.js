@@ -13,7 +13,7 @@ import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
-import LandingPage from "./pages/LandingPage/LandingPage";
+import LandingPage from "./pages/LandingPage/blog";
 import Following from "./pages/Following/Following";
 import MyPhotos from "./pages/MyPhotos/MyPhotos";
 import Posts from "./pages/Posts/Posts";
