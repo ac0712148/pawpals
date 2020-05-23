@@ -105,8 +105,9 @@ export default function Following() {
                 </div>
                 <Container className={classes.cardGrid} maxWidth="md">
                     <div className={classes.section1}>
+                        <Typography variant="h3" align="center"> Following </Typography>
+                        <Grid item sm />
                         <Grid container spacing={4}>
-                        <Typography variant="h2"> Following </Typography>
                             {users.map((card, i) => (
                                 <Grid item key={i} xs={12} sm={6} md={4}>
                                     <Card className={classes.card}>
