@@ -2,9 +2,29 @@ import React, { useState } from "react";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import API from "./../utils/API";
 import {useAuth} from "../utils/auth";
-import "./Login.css"
+// import "./Login.css"
+
+// import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from "@material-ui/core/Grid"
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import PetsIcon from '@material-ui/icons/Pets';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: '25ch',
+    },
+  },
+}));
 
 function Signup() {
+  const classes = useStyles();
+
   const [formState, setFormState] = useState({
     username: "",
     email: "",
@@ -39,10 +59,63 @@ function Signup() {
   };
 
   return (
-   
-  <section className="container-fluid">
+    <div>
+    <Grid container>
+      <Grid item sm />
+      <Grid item >
+        <PetsIcon />
+        <Typography variant="h2">SignUp</Typography>
+        <form noValidate className="form-container" onSubmit={handleFormSubmit}>
+          <TextField
+            id="username"
+            name="username"
+            type="text"
+            label="Username"
+            className="form-control"
+            fullWidth
+            onChange={handleChange}
+          >
+          </TextField>
+          <TextField 
+            id="email" 
+            name="email" 
+            type="email" 
+            label="Email"
+            className="form-control"
+            onChange={handleChange}
+            fullWidth
+          >
+          </TextField>
+          <TextField
+            id="pwd"
+            name="password"
+            type="password"
+            label="Password"
+            className="form-control"
+            fullWidth
+            onChange={handleChange}
+          >
+          </TextField>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className="button"
+          >
+            SignUp
+          </Button>
+          <br />
+          <small>
+            Already have an account ? Login <Link to="/login">here</Link>
+          </small>
+        </form>
+        </Grid>
+        <Grid item sm />
+    </Grid>
+   <br />
+  {/* <section className="container-fluid"> */}
     {/* row and justify-content-center class is used to place the form in center */}
-    <section className="row justify-content-center">
+    {/* <section className="row justify-content-center">
       <section className="col-12 col-sm-6 col-md-4">
         <form className="form-container" onSubmit={handleFormSubmit}>
 
@@ -88,7 +161,8 @@ function Signup() {
         </form>
       </section>
     </section>
-  </section>
+  </section> */}
+  </div>
 
 
   );
