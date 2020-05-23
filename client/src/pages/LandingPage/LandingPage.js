@@ -119,6 +119,8 @@ function LandingPage() {
               </Card>
             </Grid>
 
+            <br></br>
+
             
         <Grid  item xs={12} sm={12} align="center"> 
               <Card className={classes.card}>
@@ -157,7 +159,7 @@ function LandingPage() {
           color="textSecondary"
           component="p"
         >
-          We will give Paw Pals users some info here
+          <span>github    |    contact     |        signup       |     login</span>
         </Typography>
         <Copyright />
       </footer>
