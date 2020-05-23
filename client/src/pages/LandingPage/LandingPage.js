@@ -127,53 +127,29 @@ function LandingPage() {
                   <Typography gutterBottom variant="h5" component="h2" align="center">
                     How to use Pawpals!
                   </Typography>
-                  <Typography align="center">
                   
-                
-                  <div className={classes.heroButtons}>
-              <Grid container spacing={1} justify="center">
-                <Grid item>
-                <Button variant="outlined" color="primary">
+                <div className={classes.heroButtons}>
+                  <Button variant="outlined" color="primary">
                     <Link className="text-white" to="/signup">Signup</Link>
                   </Button>
-                </Grid>
-              </Grid>
-            </div>
+                </div>
         
                  
                   <div className={classes.heroButtons}>
-              <Grid container spacing={1} justify="center">
-                <Grid item>
-                  <Button variant="outlined" color="primary">
+                <Button variant="outlined" color="primary">
                     <Link className="text-white" to="/login">Login</Link>
                   </Button>
-                </Grid>
-              </Grid>
-            </div>
+                </div>
+
                   <br></br>
                   <br></br>
                   Explore!
                   <br></br>
                   <br></br>
-                  </Typography>
+                  
                 </CardContent>
               </Card>
             </Grid>
-
-{/* 
-            <div className={classes.heroButtons}>
-              <Grid container spacing={2} justify="center">
-                <Grid item>
-                  <Button variant="outlined" color="primary">
-                    Update Profile
-                  </Button>
-                </Grid>
-              </Grid>
-            </div> */}
-         
-       
-
-        
 
         <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
