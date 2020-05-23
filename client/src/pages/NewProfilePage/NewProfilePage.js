@@ -79,14 +79,16 @@ const useStyles = makeStyles((theme) => ({
 export default function NewProfile() {
 
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  // Keeping email here in case we need it later
+  // const [email, setEmail] = useState("");
   const [userPhoto, setProfile] =useState(""); 
   const { user } = useAuth();
 
   useEffect(() => {
     API.getUser(user.id).then(res => {
       setUsername(res.data.username);
-      setEmail(res.data.email);
+      //keeping email here in case we need it later
+      // setEmail(res.data.email);
       setProfile(res.data.userPhotos)
     });
   }, [user]);
@@ -117,7 +119,8 @@ export default function NewProfile() {
                   className={classes.large}
                 />
               </Grid>
-              <h2>Name: {username}: <span> email: {email}</span></h2>
+              {/* <h2>Name: {username}: <span> email: {email}</span></h2> */}
+              <h2>Hi! My Name is {username}</h2>
             </Grid>
 
             <Typography

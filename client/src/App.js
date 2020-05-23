@@ -41,9 +41,12 @@ function App() {
         <div>
           <Navbar />
           <Switch>
-            <Route exact path="/landingpage" component={LandingPage} />
+            <Route exact path="/" component={LandingPage} />
             {/* <Route exact path="/landingpage" render={props => <LandingPage {...props}/>} /> */}
-
+              
+              {/* For now {Home} is a redundant route. Did not delete as we may use it at a later stage
+            <ProtectedRoute exact path="/" component={Home} /> */}
+           
             <ProtectedRoute exact path="/" component={Home} />
 
             <Route exact path="/login" component={Login} />
