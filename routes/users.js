@@ -87,7 +87,7 @@ router.patch("/api/followers/:id", isAuthenticated, (req, res) => {
   db.User.findOneAndUpdate(
     { _id: id },
     {
-      $addToSet: { followers: id },
+      $addToSet: { followers: req.body.followers },
     },
     { new: true, upsert: true, setDefaultsOnInsert: true },
     (err) => {
@@ -119,7 +119,73 @@ router.patch("/api/unfollowers/:id", isAuthenticated, (req, res) => {
   db.User.findOneAndUpdate(
     { _id: id },
     {
-      $pull: { followers: id },
+      $pull: { followers: req.body.followers },
+    },
+    { new: true, upsert: true, setDefaultsOnInsert: true },
+    (err) => {
+      if (err !== null && err.name === "MongoError" && err.code === 11000) {
+        return res.status(500).send({ message: "something went wrong." });
+      }
+    }
+  )
+    .then((user) => {
+      return res.json(user);
+    })
+    .catch((err) => {
+      if (err !== null && err.name === "MongoError" && err.code === 11000) {
+        return res
+          .status(500)
+          .send({ message: "This email is already in use." });
+      }
+      console.log(err);
+      return res.status(500).json({ message: err });
+    });
+});
+
+router.patch("/api/following/:id", isAuthenticated, (req, res) => {
+  //making sure the user is logged in and is the ONE user
+  const { id } = req.params;
+  if (req.user.id !== id) {
+    return res.sendStatus(401);
+  }
+  //if the user is logged in, find and update. add to set: followers by their ID
+  db.User.findOneAndUpdate(
+    { _id: id },
+    {
+      $addToSet: { following: req.body.following },
+    },
+    { new: true, upsert: true, setDefaultsOnInsert: true },
+    (err) => {
+      if (err !== null && err.name === "MongoError" && err.code === 11000) {
+        return res.status(500).send({ message: "something went wrong." });
+      }
+    }
+  )
+    .then((user) => {
+      return res.json(user);
+    })
+    .catch((err) => {
+      if (err !== null && err.name === "MongoError" && err.code === 11000) {
+        return res
+          .status(500)
+          .send({ message: "This email is already in use." });
+      }
+      console.log(err);
+      return res.status(500).json({ message: err });
+    });
+});
+
+router.patch("/api/unfollowing/:id", isAuthenticated, (req, res) => {
+  //making sure the user is logged in and is the ONE user
+  const { id } = req.params;
+  if (req.user.id !== id) {
+    return res.sendStatus(401);
+  }
+  //if the user is logged in, find and update. add to set: followers by their ID
+  db.User.findOneAndUpdate(
+    { _id: id },
+    {
+      $pull: { following: req.body.following },
     },
     { new: true, upsert: true, setDefaultsOnInsert: true },
     (err) => {
