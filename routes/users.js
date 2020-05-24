@@ -219,6 +219,8 @@ router.get("/api/userPhotos", async (req, res) => {
 //delete a userPhoto
 router.delete("/api/userPhotos/:id", isAuthenticated, (req, res) => {
   const { id } = req.params;
+  console.log(id);
+  console.log(req.body);
   if (req.user.id !== id) {
     return res.sendStatus(401);
   }
