@@ -16,7 +16,6 @@ import Footer from './Footer';
 // import post2 from './blog-post.2.md';
 // import post3 from './blog-post.3.md';
 import Button from '@material-ui/core/Button';
-import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -45,7 +44,7 @@ const mainFeaturedPost = {
   imgText: 'main image description',
   linkText:
     <Button variant="contained" size="small">
-          <Link className="text-white" to="/signup">Sign Up</Link>
+          Sign up
         </Button>
   
 };
