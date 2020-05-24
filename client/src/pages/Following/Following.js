@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider'
-
+import { useAuth } from '../../utils/auth'
 import Axios from "axios";
 
 function Copyright() {
@@ -62,10 +62,37 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Following() {
     const classes = useStyles();
-    const [users,
-        setUsers] = useState([]);
+    const { user } = useAuth();
+    const [currentUser, setCurrentUser] = useState();
+    const [others, setOthers] = useState([])
+    const [users, setUsers] = useState([]);
+    
+    // function filterUsers(usersData) {
+    //     console.log(usersData)
+    //     return usersData.filter((userData => {
+    //         return userData._id !== user.id
+    //     }))
+    // }
 
     useEffect(() => {
+        function filterUsers(usersData) {
+            // console.log(usersData)
+            return usersData.filter((userData => {
+                return userData._id !== user.id
+            }))
+        }
+        const newArr = filterUsers(users);
+        setOthers(newArr);
+    }, [users, user.id])
+
+    useEffect(() => {
+        function getCurrentUser(userID) {
+            Axios
+                .get(`/api/user/${userID}`)
+                .then(res => {
+                    setCurrentUser(res.data)
+                })
+        }
         function fetchData() {
             Axios
                 .get(`/api/users/`)
@@ -74,7 +101,8 @@ export default function Following() {
                 })
         }
         fetchData();
-    }, []);
+        getCurrentUser(user.id)
+    },[user.id]);
 
     return (
         <React.Fragment>
@@ -108,6 +136,7 @@ export default function Following() {
                         <Typography variant="h3" align="center"> Following </Typography>
                         <Grid item sm />
                         <Grid container spacing={4}>
+                            {console.log(currentUser)}
                             {users.map((card, i) => (
                                 <Grid item key={i} xs={12} sm={6} md={4}>
                                     <Card className={classes.card}>
@@ -139,7 +168,7 @@ export default function Following() {
                     <Divider variant="middle"/>
                     <div className={classes.section2}>
                         <Grid container spacing={4}>
-                            {users.map((card, i) => (
+                            {others.map((card, i) => (
                                 <Grid item key={i} xs={12} sm={6} md={4}>
                                     <Card className={classes.card}>
                                         <CardMedia
