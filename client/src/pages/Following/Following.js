@@ -63,17 +63,56 @@ const useStyles = makeStyles((theme) => ({
 export default function Following() {
     const classes = useStyles();
     const { user } = useAuth();
-    const [currentUser, setCurrentUser] = useState();
+    const [currentUser, setCurrentUser] = useState([{followers: []}]);
     const [others, setOthers] = useState([])
     const [users, setUsers] = useState([]);
-    
-    // function filterUsers(usersData) {
-    //     console.log(usersData)
-    //     return usersData.filter((userData => {
-    //         return userData._id !== user.id
-    //     }))
-    // }
 
+    function followUser(id) {
+        Axios
+            .patch(`/api/followers/${user.id}`, {
+                followers: id,
+            })
+            .then((res) => {
+                setCurrentUser(res.data)
+                console.log(res.data)
+            })
+    }
+    function unfollowUser(id) {
+        Axios
+            .patch(`/api/unfollowers/${user.id}`, {
+                followers: id,
+            })
+            .then((res) => {
+                setCurrentUser(res.data)
+                console.log(res.data)
+            })
+    }
+
+    // useEffect(() => {
+    //     function followUser(id) {
+    //         Axios
+    //             .patch(`/api/followers/${id}`, {
+    //                 followers: id,
+    //             })
+    //             .then((res) => {
+    //                 setCurrentUser(res.data)
+    //             })
+    //     }
+    //     function unfollowUser(id) {
+    //         Axios
+    //             .patch(`/api/unfollowers/${id}`, {
+    //                 followers: id,
+    //             })
+    //             .then((res) => {
+    //                 setCurrentUser(res.data)
+    //             })
+    //     }
+
+    // })
+
+
+
+    ///////// Takes care of setting up other all users
     useEffect(() => {
         function filterUsers(usersData) {
             // console.log(usersData)
@@ -103,6 +142,8 @@ export default function Following() {
         fetchData();
         getCurrentUser(user.id)
     },[user.id]);
+    ///// End of taking care of other users
+
 
     return (
         <React.Fragment>
@@ -136,7 +177,7 @@ export default function Following() {
                         <Typography variant="h3" align="center"> Following </Typography>
                         <Grid item sm />
                         <Grid container spacing={4}>
-                            {console.log(currentUser)}
+                            {console.log(currentUser.followers)}
                             {users.map((card, i) => (
                                 <Grid item key={i} xs={12} sm={6} md={4}>
                                     <Card className={classes.card}>
@@ -156,7 +197,7 @@ export default function Following() {
                                             <Button size="small" color="primary">
                                                 View
                                             </Button>
-                                            <Button size="small" color="primary">
+                                            <Button size="small" color="primary" onClick={() => {unfollowUser(card._id)}}>
                                                 Unfollow
                                             </Button>
                                         </CardActions>
@@ -187,8 +228,8 @@ export default function Following() {
                                             <Button size="small" color="primary">
                                                 View
                                             </Button>
-                                            <Button size="small" color="primary">
-                                                Unfollow
+                                            <Button size="small" color="primary" onClick={() => {followUser(card._id)}}>
+                                                follow
                                             </Button>
                                         </CardActions>
                                     </Card>
