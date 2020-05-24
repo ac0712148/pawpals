@@ -63,7 +63,7 @@ const featuredPosts = [
     // date: 'Nov 11',
     description:
       'Users will find Pawpals is an excellent place to show of their doggo, and meet other dog friends! Users may share photos, ideas and find friends here on pawpwals.',
-    image: 'https://images.unsplash.com/photo-1559096996-73fc537f9296?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80',
+    image: 'https://images.unsplash.com/photo-1510771463146-e89e6e86560e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=564&q=80',
     imageText: 'Image Text',
   },
 ];
