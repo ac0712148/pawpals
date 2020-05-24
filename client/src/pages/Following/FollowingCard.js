@@ -7,6 +7,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
+import API from '../../utils/API'
 
 const useStyles = makeStyles((theme) => ({
     icon: {
@@ -50,12 +51,15 @@ export default function FollowingCard(props) {
 
     const {card, i, handleunFollow} = props;
 
+
+
     return (
         <Grid item key={i} xs={12} sm={6} md={4}>
+            {/* {console.log(card)} */}
             <Card className={classes.card}>
                 <CardMedia
                     className={classes.cardMedia}
-                    image={card.userPhotos[0]}
+                    image={card.userPhotos[0] ? card.userPhotos[0] : "https://naturalhistory.si.edu/themes/gesso/images/default-avatar.jpg"}
                     title="Image title"/>
                 <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">

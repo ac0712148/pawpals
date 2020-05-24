@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider'
-import { useAuth } from '../../utils/auth'
+import {useAuth} from '../../utils/auth'
 import Axios from "axios";
 
 import FollowingHeader from './FollowingHeader'
@@ -52,27 +52,48 @@ const useStyles = makeStyles((theme) => ({
 export default function Following() {
     const classes = useStyles();
 
-    const { user } = useAuth(); // user.id
-    const [ currentUser, setCurrentUser] = useState([])
-    const [others, setOthers] = useState([])
-    const [users, setUsers] = useState([]);
+    const {user} = useAuth(); // user.id
+    const [currentUser,
+        setCurrentUser] = useState([])
+    const [others,
+        setOthers] = useState([]);
+    const [users,
+        setUsers] = useState([]);
+    const [followers,
+        setFollowers] = useState([]);
+    const [followersData, setFollowersData] = useState([]);
 
     
+    // console.log(arr)
+
     useEffect(() => {
         function filterUsers(usersData) {
-            return usersData.filter((userData => {
-                return userData._id !== user.id
-            }))
+            return usersData.filter((userData) => {
+                return (followers.includes(userData._id))
+            })
         }
-        const newArr = filterUsers(users);
-        setOthers(newArr);
-    }, [users, user.id])
+        const arr = filterUsers(users)
+        setFollowersData(arr);
+    }, [followers, users])
+
+    useEffect(() => {
+        function filterUsersFromFollowers(usersData) {
+            return usersData.filter((userData) => {
+                return (!(followers.includes(userData._id)) && (userData._id !== user.id))
+            })
+        }
+        const arr = filterUsersFromFollowers(users)
+        // const arr = filterUsersFromMyUser(users)
+        setOthers(arr)
+    }, [users, user.id, followers])
+    
     useEffect(() => {
         function getCurrentUser(userID) {
             Axios
                 .get(`/api/user/${userID}`)
                 .then(res => {
                     setCurrentUser(res.data)
+                    setFollowers(res.data.followers)
                 })
         }
         function getAllUsers() {
@@ -84,7 +105,7 @@ export default function Following() {
         }
         getAllUsers();
         getCurrentUser(user.id)
-    },[user.id]);
+    }, [user.id]);
 
     function handleFollow(id) {
         console.log(id)
@@ -93,146 +114,44 @@ export default function Following() {
         console.log(id)
     }
 
-
     return (
         <div className="followers">
-            {console.log(currentUser)}
-            {console.log(others)}
+            {console.log(followers)}
             <main>
-                <FollowingHeader />
+                <FollowingHeader/>
                 <div className="pageContent">
                     <Container className={classes.cardGrid} maxWidth="md">
                         <div className={classes.section1}>
-                            <Typography variant="h3" align="center"> Following </Typography>
-                            <Grid item sm />
+                            <Typography variant="h3" align="center">
+                                Following
+                            </Typography>
+                            <Grid item sm/>
                             <Grid container spacing={4}>
-                                {currentUser.followers ? currentUser.followers.map((card, i) => (<FollowingCard key={Math.random()} card={card} i={i} handleunFollow={handleunFollow}/>)) : <h1>Loadings....</h1> }
+                                {/* {console.log(others)} */}
+                                {followersData
+                                    ? followersData.map((card, i) => (<FollowingCard
+                                        key={Math.random()}
+                                        card={card}
+                                        i={i}
+                                        handleunFollow={handleunFollow}/>))
+                                    : <h1>Loadings....</h1>}
                                 {/* {users.map((card, i) => (
                                     <FollowingCard card={card} i={i} />
                                 ))} */}
                             </Grid>
                         </div>
-                        <Divider variant="middle"/>
+                        <Divider />
                         <div className={classes.section2}>
                             <Grid container spacing={4}>
-                                {others ? others.map((card, i) => (<AllUsers key={Math.random()} card={card} i={i} handleFollow={handleFollow}/>)) : <h1>Loadings....</h1> }
+                                {others
+                                    ? others.map((card, i) => (<AllUsers key={Math.random()} card={card} i={i} handleFollow={handleFollow}/>))
+                                    : <h1>Loadings....</h1>}
                             </Grid>
                         </div>
                     </Container>
                 </div>
             </main>
-            <Footer />
+            <Footer/>
         </div>
-
-
-        // <React.Fragment>
-        //     <CssBaseline/>
-        //     {console.log(currentUser.followers)}
-        //     <main>
-        //         {/* Hero unit */}
-        //         <div className={classes.heroContent}>
-        //             <Container maxWidth="sm">
-        //                 <Typography
-        //                     component="h1"
-        //                     variant="h2"
-        //                     align="center"
-        //                     color="textPrimary"
-        //                     gutterBottom>
-        //                     My Paw Pals
-        //                 </Typography>
-        //                 <div className={classes.heroButtons}>
-        //                     <Grid container spacing={2} justify="center">
-        //                         <Grid item>
-        //                             <Button variant="outlined" color="primary">
-        //                                 Search Pals
-        //                             </Button>
-        //                         </Grid>
-        //                     </Grid>
-        //                 </div>
-        //             </Container>
-        //         </div>
-                // <Container className={classes.cardGrid} maxWidth="md">
-                //     <div className={classes.section1}>
-                //         <Typography variant="h3" align="center"> Following </Typography>
-                //         <Grid item sm />
-                //         <Grid container spacing={4}>
-                //             {/* {console.log(currentUser.followers)} */}
-                //             {users.map((card, i) => (
-                //                 <Grid item key={i} xs={12} sm={6} md={4}>
-                //                     <Card className={classes.card}>
-                //                         <CardMedia
-                //                             className={classes.cardMedia}
-                //                             image={card.userPhotos[0]}
-                //                             title="Image title"/>
-                //                         <CardContent className={classes.cardContent}>
-                //                             <Typography gutterBottom variant="h5" component="h2">
-                //                                 {card.username}
-                //                             </Typography>
-                //                             <Typography>
-                //                                 This is a little information about me.
-                //                             </Typography>
-                //                         </CardContent>
-                //                         <CardActions>
-                //                             <Button size="small" color="primary">
-                //                                 View
-                //                             </Button>
-                //                             <Button size="small" color="primary" onClick={() => {console.log("Unfollow Clicked")}}>
-                //                                 Unfollow
-                //                             </Button>
-                //                         </CardActions>
-                //                     </Card>
-                //                 </Grid>
-                //             ))}
-                //         </Grid>
-                //     </div>
-                //     <Divider variant="middle"/>
-                //     <div className={classes.section2}>
-                //         <Grid container spacing={4}>
-                //             {users.map((card, i) => (
-                //                 <Grid item key={i} xs={12} sm={6} md={4}>
-                //                     <Card className={classes.card}>
-                //                         <CardMedia
-                //                             className={classes.cardMedia}
-                //                             image={card.userPhotos[0]}
-                //                             title="Image title"/>
-                //                         <CardContent className={classes.cardContent}>
-                //                             <Typography gutterBottom variant="h5" component="h2">
-                //                                 {card.username}
-                //                             </Typography>
-                //                             <Typography>
-                //                                 This is a little information about me.
-                //                             </Typography>
-                //                         </CardContent>
-                //                         <CardActions>
-                //                             <Button size="small" color="primary">
-                //                                 View
-                //                             </Button>
-                //                             <Button size="small" color="primary" onClick={() => {console.log("Follow Clicked")}}>
-                //                                 follow
-                //                             </Button>
-                //                         </CardActions>
-                //                     </Card>
-                //                 </Grid>
-                //             ))}
-                //         </Grid>
-                //     </div>
-                // </Container>
-        //     </main>
-        //     {/* Footer */}
-        //     <footer className={classes.footer}>
-        //         <Typography variant="h6" align="center" gutterBottom>
-        //             Paw Pals
-        //         </Typography>
-        //         <Typography
-        //             variant="subtitle1"
-        //             align="center"
-        //             color="textSecondary"
-        //             component="p">
-        //             We will give Paw Pals users some info here
-        //         </Typography>
-        //         <Copyright/>
-        //     </footer>
-        //     {/* End footer */}
-        // </React.Fragment>
     );
 }

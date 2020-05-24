@@ -57,7 +57,7 @@ export default function FollowingCard(props) {
             <Card className={classes.card}>
                 <CardMedia
                     className={classes.cardMedia}
-                    image={card.userPhotos[0]}
+                    image={card.userPhotos[0] ? card.userPhotos[0] : "https://naturalhistory.si.edu/themes/gesso/images/default-avatar.jpg"}
                     title="Image title"/>
                 <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
