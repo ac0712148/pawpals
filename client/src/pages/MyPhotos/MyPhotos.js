@@ -8,7 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import API from "../../utils/API"
-
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -62,7 +61,7 @@ export default function MyPhotos() {
   const [file, setFile] = useState({});
 
   const selectFile = (e) => {
-    if(!e.target.files[0]){
+    if (!e.target.files[0]) {
       return;
     }
     setFile(e.target.files[0]);
@@ -73,9 +72,9 @@ export default function MyPhotos() {
     API.addPhoto(formData)
       .then(res => {
         API.addUserPhotos(user.id, res.data.Location)
-        .then((res) => {
-          setPhotos(res.data.userPhotos)
-        }).catch(err => {
+          .then((res) => {
+            setPhotos(res.data.userPhotos)
+          }).catch(err => {
             console.log(err)
           })
       }).catch(err => {
@@ -116,7 +115,6 @@ export default function MyPhotos() {
                 <Grid item>
                   <button onClick={sendFile}>Send File</button>
                 </Grid>
-
               </Grid>
             </div>
           </Container>
@@ -132,12 +130,12 @@ export default function MyPhotos() {
                     className={classes.cardMedia}
                     image={url}
                     title="Image title"
-                  />
+                  />              
                   <IconButton aria-label="delete" className={classes.margin}>
-          <DeleteIcon fontSize="small" />
-        </IconButton>
-                </Card>
-              </Grid>
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>                 
+                </Card>                
+              </Grid>          
             ))}
           </Grid>
         </Container>
