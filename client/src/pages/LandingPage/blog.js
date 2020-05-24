@@ -16,6 +16,20 @@ import Footer from './Footer';
 // import post2 from './blog-post.2.md';
 // import post3 from './blog-post.3.md';
 import Button from '@material-ui/core/Button';
+// import Typography from '@material-ui/core/Typography';
+
+// function Copyright() {
+//   return (
+//     <Typography variant="body2" color="textSecondary" align="center">
+//       {'Copyright © '}
+//       {/* <Link color="inherit" href="https://material-ui.com/">
+//         Paw Pals
+//       </Link>{' '} */}
+//       {new Date().getFullYear()}
+//       {'.'}
+//     </Typography>
+//   );
+// }
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -122,7 +136,18 @@ export default function Blog() {
           </Grid>
         </main>
       </Container>
-      <Footer title="Footer" description="Something here to give the footer a purpose!" />
+      {/* Footer */}
+      {/* <footer className={classes.footer}>
+        <Typography variant="h6" align="center" gutterBottom>
+          Paw Pals
+        </Typography>
+        <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
+          We will give Paw Pals users some info here
+        </Typography>
+        <Copyright />
+      </footer> */}
+      {/* End footer */}
+      <Footer title="Pawpals!" description="Something here to give the footer a purpose!" />
     </React.Fragment>
   );
 }
