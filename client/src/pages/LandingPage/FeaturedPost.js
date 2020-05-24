@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     flex: 1,
   },
   cardMedia: {
-    width: 160,
+    width: 125,
   },
 });
 
@@ -46,7 +46,7 @@ export default function FeaturedPost(props) {
               </Typography>
             </CardContent>
           </div>
-          <Hidden xsDown>
+          <Hidden>
             <CardMedia className={classes.cardMedia} image={landingPageCard.image} title={landingPageCard.imageTitle} />
           </Hidden>
         </Card>
