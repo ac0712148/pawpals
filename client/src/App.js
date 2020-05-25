@@ -28,7 +28,7 @@ function ProtectedRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={(props) =>
-        isLoggedIn ? <Component {...props} /> : <Redirect to="/landingpage" />
+        isLoggedIn ? <Component {...props} /> : <Redirect to="/" />
       }
     />
   );
