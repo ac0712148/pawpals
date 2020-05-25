@@ -9,12 +9,13 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Avatar from "@material-ui/core/Avatar";
 import Tab from "@material-ui/core/Tab";
-import Axios from 'axios'
+import Axios from "axios";
 
 ///////// Imports needed for post preview ///////
 import Post from "../../components/Posts/Post"
@@ -67,6 +68,14 @@ const useStyles = makeStyles((theme) => ({
     height: "50px",
     width: "50px",
   },
+  username: {
+    marginLeft: "15px",
+    lineHeight: "2.5em",
+  },
+  tab: {
+    width: "100%",
+    height: "100px",
+  },
   //   cardHeading: {
   //     padding: theme.spacing(0, 9, 0),
   //   },
@@ -83,24 +92,31 @@ export default function NewProfile() {
   const [username, setUsername] = useState("");
   // Keeping email here in case we need it later
   // const [email, setEmail] = useState("");
-  const [userPhoto, setProfile] = useState("");
+  const [userPhoto, setUserPhoto] = useState([]);
   const [users, setUsers] = useState([]);
   const { user } = useAuth();
 
   useEffect(() => {
-    API.getUser(user.id).then((res) => {
-      setUsername(res.data.username);
+    async function getAllUsers() {
+      // abstracts out response = { data: { username: 'b', userPhots: []}}
+      // ==> username === 'b'
+      // ==> userPhotos === []
+      const {
+        data: { username, userPhotos },
+      } = await API.getUser(user.id);
+      console.log(username, userPhotos);
+      setUsername(username);
+      setUserPhoto(userPhotos);
       //keeping email here in case we need it later
       // setEmail(res.data.email);
-      setProfile(res.data.userPhotos);
-    });
-    function getAllUsers() {
-      Axios.get(`/api/users/`).then((res) => {
-        setUsers(res.data);
-      });
+      const res = await Axios.get(`/api/users/`);
+      setUsers(res.data);
     }
-    getAllUsers();
-  }, [user]);
+
+    if (user.id) {
+      getAllUsers();
+    }
+  }, [user.id]);
 
   /////////////// Post preview Section/////////
   
@@ -127,14 +143,6 @@ export default function NewProfile() {
     <React.Fragment>
       {console.log(latestPost)}
       <CssBaseline />
-      {/* <AppBar position="relative">
-          <Toolbar>
-            <CameraIcon className={classes.icon} />
-            <Typography variant="h6" color="inherit" noWrap>
-              Album layout
-            </Typography>
-          </Toolbar>
-        </AppBar> */}
       <main>
         {/* Hero unit */}
 
@@ -212,13 +220,28 @@ export default function NewProfile() {
               </Card>
             </Grid>
 
+            {/* PHOTOS */}
             <Grid item xs={12} sm={6}>
               <Card className={classes.card}>
-                <CardMedia
+                <Box to="/myphotos" component={Link} display="flex" flexWrap="wrap">
+                  {userPhoto
+                    .filter((x, i) => i > 0 && i < 10)
+                    .map((p, i) => (
+                      <Box width="33.33%" key={i + "-img"}>
+                        <Avatar
+                          src={p}
+                          variant="square"
+                          className={classes.tab}
+                        />
+                      </Box>                  
+                    ))}
+                </Box>
+                
+                {/* <CardMedia
                   className={classes.cardMedia}
                   image="https://upload.wikimedia.org/wikipedia/commons/d/d9/Collage_of_Nine_Dogs.jpg"
                   title="Image title"
-                />
+                /> */}
                 <CardContent className={classes.cardContent}>
                   {/* <Typography gutterBottom variant="h5" component="h2">
                     <Button variant="contained" className={classes.btn} justify='center'>
@@ -230,6 +253,7 @@ export default function NewProfile() {
               </Card>
             </Grid>
 
+            {/* Followers          */}
             <Grid item xs={12} sm={6}>
               <Card className={classes.card}>
                 <CardContent className={classes.cardContent}>
@@ -242,23 +266,34 @@ export default function NewProfile() {
                     My Paw Pals
                   </Typography>
 
-                  {users.filter((x, i) => i < 4).map((card, i) => {
-                    const image = card.userPhotos[0]
-                      ? card.userPhotos[0]
-                      : "https://naturalhistory.si.edu/themes/gesso/images/default-avatar.jpg";
+                  {users
+                    .filter((x, i) => i < 4)
+                    .map((card, i) => {
+                      console.log(card)
+                      const image = card.userPhotos[0]
+                        ? card.userPhotos[0]
+                        : "https://naturalhistory.si.edu/themes/gesso/images/default-avatar.jpg";
 
-                    return (
-                      <div key={i + "-avatar"}>
-                        <Avatar
-                          alt="Remy Sharp"
-                          src={image}
-                          component="span"
-                          className={classes.medium}
-                        />
-                        <Typography display="inline" align="left">{card.username}</Typography>
-                      </div>
-                    );
-                  })}
+                      return (
+                        // <Box my={1} key={i + "-avatar"} display="flex">
+                        <div key={i}>
+                          <Avatar
+                            alt="Remy Sharp"
+                            src={image}
+                            component="span"
+                          />
+                          <Box to={`/otherPhotos/${card._id}/${card.username}`} component={Link} display="flex" flexWrap="wrap">
+                          <Typography
+                            align="center"
+                            classes={{ root: classes.username }}
+                          >
+                            {card.username}
+                          </Typography>
+                          </Box>
+                          </div>
+                        // </Box>
+                      );
+                    })}
 
                   {/* <Avatar
                     alt="Remy Sharp"
