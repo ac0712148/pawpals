@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useCallback} from "react";
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider'
@@ -24,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(4)
     },
     cardGrid: {
-        paddingTop: theme.spacing(8),
-        paddingBottom: theme.spacing(8)
+        paddingTop: theme.spacing(4),
+        paddingBottom: theme.spacing(4)
     },
     card: {
         height: '100%',
@@ -127,9 +126,9 @@ export default function Following() {
                 <div className="pageContent">
                     <Container className={classes.cardGrid} maxWidth="md">
                         <div className={classes.section1}>
-                            <Typography variant="h3" align="center">
+                            {/* <Typography variant="h3" align="center" style={{paddingBottom: "20px"}}>
                                 Following
-                            </Typography>
+                            </Typography> */}
                             <Grid item sm/>
                             <Grid container spacing={4}>
                                 {followersData
