@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     },
     heroContent: {
         backgroundColor: theme.palette.background.white,
-        padding: theme.spacing(8, 0, 6)
+        padding: theme.spacing(8, 0, 2)
     },
     heroButtons: {
         marginTop: theme.spacing(4)

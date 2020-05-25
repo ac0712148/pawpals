@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -68,10 +69,13 @@ export default function FollowingCard(props) {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small" color="primary">
-                        View
+                    <Button size="small" color="primary" >
+                        <Link to={`/otherPhotos/${card._id}`}>
+                            View
+                      </Link>
+                        
                     </Button>
-                    <Button size="small" color="primary" onClick={() => handleunFollow(card._id)}>
+                    <Button size="small" color="secondary" onClick={() => handleunFollow(card._id)}>
                         Unfollow
                     </Button>
                 </CardActions>

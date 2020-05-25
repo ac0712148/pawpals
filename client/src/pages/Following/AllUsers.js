@@ -60,17 +60,11 @@ export default function FollowingCard(props) {
                     : "https://naturalhistory.si.edu/themes/gesso/images/default-avatar.jpg"}
                     title="Image title"/>
                 <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <Typography gutterBottom variant="h5" component="h2" align="center">
                         {card.username}
-                    </Typography>
-                    <Typography>
-                        This is a little information about me.
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small" color="primary">
-                        View
-                    </Button>
                     <Button
                         size="small"
                         color="primary"
