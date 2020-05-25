@@ -73,6 +73,7 @@ export default function CommentCard(props) {
             .then(() => {
                 fetchData();
             })
+            setTextFieldValue("")
     }
 
     return (
