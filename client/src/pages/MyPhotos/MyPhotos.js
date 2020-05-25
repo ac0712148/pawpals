@@ -143,6 +143,9 @@ export default function MyPhotos() {
         </div>
 
         <Container className={classes.cardGrid} maxWidth="md">
+
+
+          
           {/* End hero unit */}
           <Grid container spacing={4}>
             {photos.map((url) => (
@@ -159,6 +162,9 @@ export default function MyPhotos() {
                 </Card>                
               </Grid>          
             ))} 
+
+
+
           </Grid>
         </Container>
       </main>
