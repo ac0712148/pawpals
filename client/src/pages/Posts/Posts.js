@@ -57,12 +57,13 @@ export default function Posts() {
             .then(() => {
                 fetchData();
             })
+        setTextFieldValue("")
     };
 
     return (
         <div className="posts">
             <Grid container justify="center">
-                <Grid item>
+                <Grid item xs={12} sm={6} style={{margin:"20px"}}>
                     <PostInput
                         onChange={newPostInputChange}
                         onSubmit={handleSubmitNewPost}
