@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -14,9 +14,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // import FavoriteIcon from '@material-ui/icons/Favorite';
 // import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Comments from "../Comments/CommentCard";
-
-import { MuiPickersUtilsProvider, DateTimePicker } from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -53,21 +50,22 @@ export default function Post(props) {
         setExpanded(!expanded);
     };
 
-    const [selectedDate, handleDateChange] = useState(new Date());
+
+    function convertTimestampToDate(unix_timestamp) {
+        var formattedTime = new Date(unix_timestamp).toLocaleDateString("en-US")
+        return formattedTime;
+    }
 
     return (
         <div id={id}>
             <Card className={classes.root}>
-                <MuiPickersUtilsProvider utils={MomentUtils}>
-                    <DateTimePicker value={selectedDate} onChange={handleDateChange} />
-                </MuiPickersUtilsProvider>
                 <CardHeader // avatar={Error: no source code supplied to jspretty!} //   <Avatar aria-label="recipe" className={classes.avatar}>
                     //     R
                     //   </Avatar>
                     // }
                     // IconButton is the setting icon that we have not used for now.
                     // action={< IconButton aria-label = "settings" > <MoreVertIcon/> </IconButton>} 
-                    title={post.authorId.username} subheader={post.timeStamp}/>
+                    title={post.authorId.username} subheader={convertTimestampToDate(post.timeStamp)}/>
 
                 <CardContent>
                     <Typography variant="body2" color="textSecondary" component="p">
@@ -95,9 +93,9 @@ export default function Post(props) {
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                        <MuiPickersUtilsProvider utils={MomentUtils}>
+                        {/* <MuiPickersUtilsProvider utils={MomentUtils}>
                             <DateTimePicker value={selectedDate} onChange={handleDateChange} />
-                        </MuiPickersUtilsProvider>
+                        </MuiPickersUtilsProvider> */}
                         <Comments post={post} />
                     </CardContent>
                 </Collapse>
