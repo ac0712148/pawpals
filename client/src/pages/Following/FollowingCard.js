@@ -71,8 +71,8 @@ export default function FollowingCard(props) {
                 </CardContent>
                 <CardActions>
                     <Button size="small" color="primary" >
-                        <Link to={`/otherPhotos/${card._id}`}>
-                            View
+                        <Link to={`/otherPhotos/${card._id}/${card.username}`}>
+                            View photos
                       </Link>
                         
                     </Button>
