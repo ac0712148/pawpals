@@ -30,7 +30,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Footer(props) {
   const classes = useStyles();
-  const { description, title } = props;
+  const description = "hello from landingpage";
+  const title= "Pawpals"
 
   return (
     <footer className={classes.footer}>
@@ -39,7 +40,7 @@ export default function Footer(props) {
           {title}
         </Typography>
         <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-          {description}
+         {description}
         </Typography>
         <Copyright />
       </Container>

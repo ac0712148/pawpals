@@ -25,5 +25,10 @@ export default {
       //might need to remove the backticks for the template literal
 
     return axios.delete(`/api/userPhotos/${userid}`, { data: { photo: photoUrl } })
+  },
+  UpdateUserBio: (userid, userBio) => {
+    return axios.patch(`/api/userBio/${userid}`, { userBio: userBio })
   }
+
+
 };
