@@ -54,17 +54,17 @@ export default function FollowingCard(props) {
 
     return (
         <footer className={classes.footer}>
-                <Typography variant="h6" align="center" gutterBottom>
-                    Paw Pals
-                </Typography>
-                <Typography
-                    variant="subtitle1"
-                    align="center"
-                    color="textSecondary"
-                    component="p">
-                    We will give Paw Pals users some info here
-                </Typography>
-                <Copyright/>
-            </footer>
+            <Typography variant="h6" align="center" gutterBottom>
+                Paw Pals
+            </Typography>
+            <Typography
+                variant="subtitle1"
+                align="center"
+                color="textSecondary"
+                component="p">
+                We will give Paw Pals users some info here
+            </Typography>
+            <Copyright/>
+        </footer>
     )
 }

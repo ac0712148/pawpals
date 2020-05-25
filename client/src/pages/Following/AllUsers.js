@@ -8,7 +8,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 
-
 const useStyles = makeStyles((theme) => ({
     icon: {
         marginRight: theme.spacing(2)
@@ -53,11 +52,12 @@ export default function FollowingCard(props) {
 
     return (
         <Grid item key={i} xs={12} sm={6} md={4}>
-            {/* {console.log(card._id)} */}
             <Card className={classes.card}>
                 <CardMedia
                     className={classes.cardMedia}
-                    image={card.userPhotos[0] ? card.userPhotos[0] : "https://naturalhistory.si.edu/themes/gesso/images/default-avatar.jpg"}
+                    image={card.userPhotos[0]
+                    ? card.userPhotos[0]
+                    : "https://naturalhistory.si.edu/themes/gesso/images/default-avatar.jpg"}
                     title="Image title"/>
                 <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
@@ -75,9 +75,7 @@ export default function FollowingCard(props) {
                         size="small"
                         color="primary"
                         value={card._id}
-                        onClick={ 
-                            () => handleFollow(card._id)
-                    }>
+                        onClick={() => handleFollow(card._id)}>
                         follow
                     </Button>
                 </CardActions>

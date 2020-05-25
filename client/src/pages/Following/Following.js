@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
@@ -61,10 +61,8 @@ export default function Following() {
         setUsers] = useState([]);
     const [followers,
         setFollowers] = useState([]);
-    const [followersData, setFollowersData] = useState([]);
-
-    
-    // console.log(arr)
+    const [followersData,
+        setFollowersData] = useState([]);
 
     useEffect(() => {
         function filterUsers(usersData) {
@@ -74,7 +72,7 @@ export default function Following() {
         }
         const arr = filterUsers(users)
         setFollowersData(arr);
-    }, [followers, users])
+    }, [followers, users, currentUser])
 
     useEffect(() => {
         function filterUsersFromFollowers(usersData) {
@@ -85,8 +83,8 @@ export default function Following() {
         const arr = filterUsersFromFollowers(users)
         // const arr = filterUsersFromMyUser(users)
         setOthers(arr)
-    }, [users, user.id, followers])
-    
+    }, [users, user.id, followers, currentUser])
+
     useEffect(() => {
         function getCurrentUser(userID) {
             Axios
@@ -108,15 +106,22 @@ export default function Following() {
     }, [user.id]);
 
     function handleFollow(id) {
-        console.log(id)
+        Axios
+            .patch(`/api/followers/${user.id}`, {followers: id})
+            .then((res => {
+                setFollowers(res.data.followers)
+            }))
     }
-    function handleunFollow(id) {
-        console.log(id)
-    }
+    const handleunFollow = useCallback((id) => {
+        Axios
+            .patch(`/api/unfollowers/${user.id}`, {followers: id})
+            .then((res => {
+                setFollowers(res.data.followers)
+            }))
+    }, [user.id])
 
     return (
         <div className="followers">
-            {console.log(followers)}
             <main>
                 <FollowingHeader/>
                 <div className="pageContent">
@@ -127,25 +132,24 @@ export default function Following() {
                             </Typography>
                             <Grid item sm/>
                             <Grid container spacing={4}>
-                                {/* {console.log(others)} */}
                                 {followersData
                                     ? followersData.map((card, i) => (<FollowingCard
                                         key={Math.random()}
                                         card={card}
                                         i={i}
                                         handleunFollow={handleunFollow}/>))
-                                    : <h1>Loadings....</h1>}
+                                    : <h1>Loading....</h1>}
                                 {/* {users.map((card, i) => (
                                     <FollowingCard card={card} i={i} />
                                 ))} */}
                             </Grid>
                         </div>
-                        <Divider />
+                        <Divider/>
                         <div className={classes.section2}>
                             <Grid container spacing={4}>
                                 {others
                                     ? others.map((card, i) => (<AllUsers key={Math.random()} card={card} i={i} handleFollow={handleFollow}/>))
-                                    : <h1>Loadings....</h1>}
+                                    : <h1>Loading....</h1>}
                             </Grid>
                         </div>
                     </Container>
