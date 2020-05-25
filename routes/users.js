@@ -159,12 +159,7 @@ router.patch("/api/following/:id", isAuthenticated, (req, res) => {
     {
       $addToSet: { following: req.body.following },
     },
-    { new: true, upsert: true, setDefaultsOnInsert: true },
-    (err) => {
-      if (err !== null && err.name === "MongoError" && err.code === 11000) {
-        return res.status(500).send({ message: "something went wrong." });
-      }
-    }
+    { new: true, upsert: true, setDefaultsOnInsert: true }
   )
     .then((user) => {
       return res.json(user);
@@ -295,19 +290,13 @@ router.delete("/api/userPhotos/:id", isAuthenticated, (req, res) => {
   if (req.user.id !== id) {
     return res.sendStatus(401);
   }
-  db.User.findOneAndUpdate(
-    { _id: id },
+
+  db.User.findByIdAndUpdate(
+    id,
     {
       $pull: { userPhotos: req.body.photo },
     },
-    { new: true, upsert: true, setDefaultsOnInsert: true },
-    (err) => {
-      if (err !== null && err.name === "MongoError" && err.code === 11000) {
-        return res
-          .status(500)
-          .send({ message: "This email is already in use." });
-      }
-    }
+    { new: true, upsert: true, setDefaultsOnInsert: true }
   )
     .then((user) => {
       return res.json(user);
