@@ -17,6 +17,7 @@ import Comments from "../Comments/CommentCard";
 
 import { MuiPickersUtilsProvider, DateTimePicker } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: "100%",
@@ -53,6 +54,7 @@ export default function Post(props) {
     };
 
     const [selectedDate, handleDateChange] = useState(new Date());
+
     return (
         <div id={id}>
             <Card className={classes.root}>
@@ -65,7 +67,7 @@ export default function Post(props) {
                     // }
                     // IconButton is the setting icon that we have not used for now.
                     // action={< IconButton aria-label = "settings" > <MoreVertIcon/> </IconButton>} 
-                    title={post.authorId.username} />
+                    title={post.authorId.username} subheader={post.timeStamp}/>
 
                 <CardContent>
                     <Typography variant="body2" color="textSecondary" component="p">
@@ -93,6 +95,9 @@ export default function Post(props) {
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
+                        <MuiPickersUtilsProvider utils={MomentUtils}>
+                            <DateTimePicker value={selectedDate} onChange={handleDateChange} />
+                        </MuiPickersUtilsProvider>
                         <Comments post={post} />
                     </CardContent>
                 </Collapse>
