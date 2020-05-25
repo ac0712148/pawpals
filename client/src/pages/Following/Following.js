@@ -1,27 +1,16 @@
-import React, {useState, useEffect} from "react";
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import React, {useState, useEffect, useCallback} from "react";
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider'
-
+import {useAuth} from '../../utils/auth'
 import Axios from "axios";
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import FollowingHeader from './FollowingHeader'
+import FollowingCard from './FollowingCard'
+import AllUsers from './AllUsers'
+import Footer from './Footer'
 
 const useStyles = makeStyles((theme) => ({
     icon: {
@@ -62,128 +51,111 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Following() {
     const classes = useStyles();
+
+    const {user} = useAuth(); // user.id
+    const [currentUser,
+        setCurrentUser] = useState([])
+    const [others,
+        setOthers] = useState([]);
     const [users,
         setUsers] = useState([]);
+    const [followers,
+        setFollowers] = useState([]);
+    const [followersData,
+        setFollowersData] = useState([]);
 
     useEffect(() => {
-        function fetchData() {
+        function filterUsers(usersData) {
+            return usersData.filter((userData) => {
+                return (followers.includes(userData._id))
+            })
+        }
+        const arr = filterUsers(users)
+        setFollowersData(arr);
+    }, [followers, users, currentUser])
+
+    useEffect(() => {
+        function filterUsersFromFollowers(usersData) {
+            return usersData.filter((userData) => {
+                return (!(followers.includes(userData._id)) && (userData._id !== user.id))
+            })
+        }
+        const arr = filterUsersFromFollowers(users)
+        // const arr = filterUsersFromMyUser(users)
+        setOthers(arr)
+    }, [users, user.id, followers, currentUser])
+
+    useEffect(() => {
+        function getCurrentUser(userID) {
+            Axios
+                .get(`/api/user/${userID}`)
+                .then(res => {
+                    setCurrentUser(res.data)
+                    setFollowers(res.data.followers)
+                })
+        }
+        function getAllUsers() {
             Axios
                 .get(`/api/users/`)
                 .then(res => {
                     setUsers(res.data)
                 })
         }
-        fetchData();
-    }, []);
+        getAllUsers();
+        getCurrentUser(user.id)
+    }, [user.id]);
+
+    function handleFollow(id) {
+        Axios
+            .patch(`/api/followers/${user.id}`, {followers: id})
+            .then((res => {
+                setFollowers(res.data.followers)
+            }))
+    }
+    const handleunFollow = useCallback((id) => {
+        Axios
+            .patch(`/api/unfollowers/${user.id}`, {followers: id})
+            .then((res => {
+                setFollowers(res.data.followers)
+            }))
+    }, [user.id])
 
     return (
-        <React.Fragment>
-            <CssBaseline/>
+        <div className="followers">
             <main>
-                {/* Hero unit */}
-                <div className={classes.heroContent}>
-                    <Container maxWidth="sm">
-                        <Typography
-                            component="h1"
-                            variant="h2"
-                            align="center"
-                            color="textPrimary"
-                            gutterBottom>
-                            My Paw Pals
-                        </Typography>
-
-                        <div className={classes.heroButtons}>
-                            <Grid container spacing={2} justify="center">
-                                <Grid item>
-                                    <Button variant="outlined" color="primary">
-                                        Search Pals
-                                    </Button>
-                                </Grid>
+                <FollowingHeader/>
+                <div className="pageContent">
+                    <Container className={classes.cardGrid} maxWidth="md">
+                        <div className={classes.section1}>
+                            <Typography variant="h3" align="center">
+                                Following
+                            </Typography>
+                            <Grid item sm/>
+                            <Grid container spacing={4}>
+                                {followersData
+                                    ? followersData.map((card, i) => (<FollowingCard
+                                        key={Math.random()}
+                                        card={card}
+                                        i={i}
+                                        handleunFollow={handleunFollow}/>))
+                                    : <h1>Loading....</h1>}
+                                {/* {users.map((card, i) => (
+                                    <FollowingCard card={card} i={i} />
+                                ))} */}
+                            </Grid>
+                        </div>
+                        <Divider/>
+                        <div className={classes.section2}>
+                            <Grid container spacing={4}>
+                                {others
+                                    ? others.map((card, i) => (<AllUsers key={Math.random()} card={card} i={i} handleFollow={handleFollow}/>))
+                                    : <h1>Loading....</h1>}
                             </Grid>
                         </div>
                     </Container>
                 </div>
-                <Container className={classes.cardGrid} maxWidth="md">
-                    <div className={classes.section1}>
-                        <Typography variant="h3" align="center"> Following </Typography>
-                        <Grid item sm />
-                        <Grid container spacing={4}>
-                            {users.map((card, i) => (
-                                <Grid item key={i} xs={12} sm={6} md={4}>
-                                    <Card className={classes.card}>
-                                        <CardMedia
-                                            className={classes.cardMedia}
-                                            image={card.userPhotos[0]}
-                                            title="Image title"/>
-                                        <CardContent className={classes.cardContent}>
-                                            <Typography gutterBottom variant="h5" component="h2">
-                                                {card.username}
-                                            </Typography>
-                                            <Typography>
-                                                This is a little information about me.
-                                            </Typography>
-                                        </CardContent>
-                                        <CardActions>
-                                            <Button size="small" color="primary">
-                                                View
-                                            </Button>
-                                            <Button size="small" color="primary">
-                                                Unfollow
-                                            </Button>
-                                        </CardActions>
-                                    </Card>
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </div>
-                    <Divider variant="middle"/>
-                    <div className={classes.section2}>
-                        <Grid container spacing={4}>
-                            {users.map((card, i) => (
-                                <Grid item key={i} xs={12} sm={6} md={4}>
-                                    <Card className={classes.card}>
-                                        <CardMedia
-                                            className={classes.cardMedia}
-                                            image={card.userPhotos[0]}
-                                            title="Image title"/>
-                                        <CardContent className={classes.cardContent}>
-                                            <Typography gutterBottom variant="h5" component="h2">
-                                                {card.username}
-                                            </Typography>
-                                            <Typography>
-                                                This is a little information about me.
-                                            </Typography>
-                                        </CardContent>
-                                        <CardActions>
-                                            <Button size="small" color="primary">
-                                                View
-                                            </Button>
-                                            <Button size="small" color="primary">
-                                                Unfollow
-                                            </Button>
-                                        </CardActions>
-                                    </Card>
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </div>
-                </Container>
             </main>
-            {/* Footer */}
-            <footer className={classes.footer}>
-                <Typography variant="h6" align="center" gutterBottom>
-                    Paw Pals
-                </Typography>
-                <Typography
-                    variant="subtitle1"
-                    align="center"
-                    color="textSecondary"
-                    component="p">
-                    We will give Paw Pals users some info here
-                </Typography>
-                <Copyright/>
-            </footer>
-            {/* End footer */}
-        </React.Fragment>
+            <Footer/>
+        </div>
     );
 }
