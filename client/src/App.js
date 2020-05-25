@@ -18,7 +18,7 @@ import Following from "./pages/Following/Following";
 import MyPhotos from "./pages/MyPhotos/MyPhotos";
 import Posts from "./pages/Posts/Posts";
 import NewProfile from "./pages/NewProfilePage/NewProfilePage";
-
+import OtherPhotos from './pages/MyPhotos/OtherUsersPhotos'
 // JSX requires uppercase Components, so we alias the component property to Component using ":"
 function ProtectedRoute({ component: Component, ...rest }) {
   const { isLoggedIn } = useAuth();
@@ -52,6 +52,8 @@ function App() {
             <Route exact path="/login" component={Login} />
 
             <Route exact path="/signup" component={Signup} />
+
+            <Route exact path="/otherPhotos/:id" component={OtherPhotos} />
                       
             <ProtectedRoute exact path="/profile" component={Profile} />
                         
