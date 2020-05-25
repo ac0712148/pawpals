@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useAuth } from "../../utils/auth";
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -56,9 +56,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MyPhotos() {
+  const fileRef = useRef()
   const classes = useStyles();
   const { user } = useAuth();
-
+  const [userRefresh, triggerUserRefresh] = useState(true)
+  const [photos, setPhotos] = useState([]);
   const [file, setFile] = useState({});
 
   const selectFile = (e) => {
@@ -66,6 +68,8 @@ export default function MyPhotos() {
       return;
     }
     setFile(e.target.files[0]);
+
+    console.log(fileRef)
   };
   const sendFile = async () => {
     const formData = new FormData();
@@ -76,6 +80,7 @@ export default function MyPhotos() {
           .then((res) => {
             console.log(res.data.userPhotos)
             setPhotos(res.data.userPhotos)
+            fileRef.current.value = ''
           }).catch(err => {
             console.log(err)
           })
@@ -84,24 +89,25 @@ export default function MyPhotos() {
       })
   };
 
-  const [photos, setPhotos] = useState([]);
+  
 
   useEffect(() => {
     async function fetchData() {
       const res = await API.getUser(user.id);
+      console.log(res.data.userPhotos)
       setPhotos(res.data.userPhotos)
+      triggerUserRefresh(false)
     }
-    fetchData();
-  }, [user.id]);
+    if(userRefresh){
+      fetchData();
+    }
+  }, [user.id, userRefresh]);
 
-  function handleDelete(photourl) {
+  const handleDelete = async (photourl) => {
     console.log(photourl)
-    console.log(user.id)
-    API.deletePhoto(user.id, photourl) 
-
-    // Axios.delete(`/api/userPhotos/${user.id}`, {
-    //   photo: photourl
-    // })
+    console.log(user._id)
+    await API.deletePhoto(user.id, photourl) 
+    triggerUserRefresh(true)
 
   }
  
@@ -122,7 +128,7 @@ export default function MyPhotos() {
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
                 <Grid item>
-                  <input type="file" onChange={selectFile} />
+                  <input type="file" onChange={selectFile} ref={fileRef} />
                 </Grid>
                 <Grid item>
                   <button onClick={sendFile}

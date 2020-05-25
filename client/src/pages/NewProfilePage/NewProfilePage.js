@@ -14,12 +14,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Avatar from "@material-ui/core/Avatar";
 import Tab from "@material-ui/core/Tab";
+import Axios from 'axios'
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      Copyright © 
-      {new Date().getFullYear()}
+      Copyright ©{new Date().getFullYear()}
     </Typography>
   );
 }
@@ -66,35 +66,40 @@ const useStyles = makeStyles((theme) => ({
   //   cardHeading: {
   //     padding: theme.spacing(0, 9, 0),
   //   },
-    btn: {
-      padding: theme.spacing(0, 5, 0),
-      height: '20px'
-
-    }
+  btn: {
+    padding: theme.spacing(0, 5, 0),
+    height: "20px",
+  },
 }));
 
 // const cardsFirstRow = [1, 2];
 // //   const cardsSecondRow = [1, 2];
 
 export default function NewProfile() {
-
   const [username, setUsername] = useState("");
   // Keeping email here in case we need it later
   // const [email, setEmail] = useState("");
-  const [userPhoto, setProfile] =useState(""); 
+  const [userPhoto, setProfile] = useState("");
+  const [users, setUsers] = useState([]);
   const { user } = useAuth();
 
   useEffect(() => {
-    API.getUser(user.id).then(res => {
+    API.getUser(user.id).then((res) => {
       setUsername(res.data.username);
       //keeping email here in case we need it later
       // setEmail(res.data.email);
-      setProfile(res.data.userPhotos)
+      setProfile(res.data.userPhotos);
     });
+    function getAllUsers() {
+      Axios.get(`/api/users/`).then((res) => {
+        setUsers(res.data);
+      });
+    }
+    getAllUsers();
   }, [user]);
 
   const classes = useStyles();
-  
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -128,9 +133,7 @@ export default function NewProfile() {
               align="center"
               color="textSecondary"
               // paragraph
-            >
-              
-            </Typography>
+            ></Typography>
 
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
@@ -204,12 +207,25 @@ export default function NewProfile() {
                     My Paw Pals
                   </Typography>
 
-                  <Avatar
-                    alt="Remy Sharp"
-                    src="https://cdn.mos.cms.futurecdn.net/BwL2586BtvBPywasXXtzwA-320-80.jpeg"
-                    className={classes.medium}
-                  />
-                  <Avatar
+                  {users.filter((x, i) => i < 4).map((card, i) => {
+                    const image = card.userPhotos[0]
+                      ? card.userPhotos[0]
+                      : "https://naturalhistory.si.edu/themes/gesso/images/default-avatar.jpg";
+
+                    return (
+                      <div key={i + "-avatar"}>
+                        <Avatar
+                          alt="Remy Sharp"
+                          src={image}
+                          component="span"
+                          className={classes.medium}
+                        />
+                        <Typography display="inline" align="left">{card.username}</Typography>
+                      </div>
+                    );
+                  })}
+
+                  {/* <Avatar
                     alt="Remy Sharp"
                     src="https://www.lovethispic.com/uploaded_images/19345-Black-And-Brown-Puppy.jpg?2"
                     className={classes.medium}
@@ -223,20 +239,17 @@ export default function NewProfile() {
                     alt="Remy Sharp"
                     src="https://minepuppy.com/wp-content/uploads/2018/02/pug-breed-minepuppy.jpg"
                     className={classes.medium}
-                  />
+                  /> */}
                   <Tab
                     label="View All Paw Pals"
                     to="./following"
                     component={Link}
-                   
                   />
-                    <CardActions>
+                  <CardActions>
                     <Button size="small" color="primary">
                       View
                     </Button>
-               
                   </CardActions>
-                  
                 </CardContent>
               </Card>
             </Grid>
