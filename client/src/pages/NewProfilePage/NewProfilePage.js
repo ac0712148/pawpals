@@ -6,7 +6,6 @@ import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -18,7 +17,6 @@ import Tab from "@material-ui/core/Tab";
 import Axios from "axios";
 
 ///////// Imports needed for post preview ///////
-import Post from "../../components/Posts/Post"
 import { CardHeader } from "@material-ui/core";
 /////// End Imports for posts///////////////////
 function Copyright() {
@@ -120,7 +118,7 @@ export default function NewProfile() {
 
   /////////////// Post preview Section/////////
   
-  const [latestPost, setLatestPost] = useState()
+  const [latestPost, setLatestPost] = useState([])
   useEffect(() => {
     function getPosts() {
       Axios.get('/api/post').then((res) => {
@@ -135,13 +133,17 @@ export default function NewProfile() {
     }
     getPosts();
   },[])
+
+  function convertTimestampToDate(unix_timestamp) {
+    var formattedTime = new Date(unix_timestamp).toLocaleDateString("en-US")
+    return formattedTime;
+}
   /////////////// End Post preview Section //////
 
   const classes = useStyles();
 
   return (
     <React.Fragment>
-      {console.log(latestPost)}
       <CssBaseline />
       <main>
         {/* Hero unit */}
@@ -186,15 +188,18 @@ export default function NewProfile() {
             
                 <CardContent className={classes.cardContent}>
                   <Typography gutterBottom variant="h5" component="h2">
-                    What's waggin in the Community?
+                    Latest PawPost!
+                  </Typography>
+                  <Typography  component="h4">
+                    Click to view PawPost!
                   </Typography>
                   {/* <Typography>
                     This is a media card. You can use this section to describe
                     the content.
                   </Typography> */}
-                  <Box to="/posts" component={Link} display="flex" flexWrap="wrap">
-                  {latestPost ? (<Card>
-                    <CardHeader title={latestPost.authorId.username} subheader={latestPost.timeStamp}/>
+                  <Box to="/posts" component={Link} display="flex" flexWrap="wrap" style={{textDecoration: "none"}}>
+                  {latestPost.authorId ? (<Card style={{width: "100%", backgroundColor: "#F4F6F6"}} variant="outlined">
+                    <CardHeader title={latestPost.authorId.username} subheader={convertTimestampToDate(latestPost.timeStamp)}/>
                     <CardContent>
                     <Typography variant="body2" color="textSecondary" component="p">
                         {latestPost.text}
