@@ -1,5 +1,5 @@
-import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
+import React, { useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -8,11 +8,15 @@ import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import {red} from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import { red } from '@material-ui/core/colors';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+// Need the MoreVerticon and FavoriteIcon for the settings and likes when we implement them later when we
+// import FavoriteIcon from '@material-ui/icons/Favorite';
+// import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Comments from "../Comments/CommentCard";
+
+import { MuiPickersUtilsProvider, DateTimePicker } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: 'auto',
         transition: theme
             .transitions
-            .create('transform', {duration: theme.transitions.duration.shortest})
+            .create('transform', { duration: theme.transitions.duration.shortest })
     },
     expandOpen: {
         transform: 'rotate(180deg)'
@@ -40,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Post(props) {
-    const {post, id} = props
+    const { post, id } = props
     const classes = useStyles();
     const [expanded,
         setExpanded] = React.useState(false);
@@ -49,14 +53,22 @@ export default function Post(props) {
         setExpanded(!expanded);
     };
 
+    const [selectedDate, handleDateChange] = useState(new Date());
+
     return (
         <div id={id}>
             <Card className={classes.root}>
+                <MuiPickersUtilsProvider utils={MomentUtils}>
+                    <DateTimePicker value={selectedDate} onChange={handleDateChange} />
+                </MuiPickersUtilsProvider>
                 <CardHeader // avatar={Error: no source code supplied to jspretty!} //   <Avatar aria-label="recipe" className={classes.avatar}>
                     //     R
                     //   </Avatar>
                     // }
-                    action={< IconButton aria-label = "settings" > <MoreVertIcon/> </IconButton>} title={post.authorId.username} subheader={post.timeStamp}/>
+                    // IconButton is the setting icon that we have not used for now.
+                    // action={< IconButton aria-label = "settings" > <MoreVertIcon/> </IconButton>} 
+                    title={post.authorId.username} subheader={post.timeStamp}/>
+
                 <CardContent>
                     <Typography variant="body2" color="textSecondary" component="p">
                         {post.text}
@@ -65,24 +77,28 @@ export default function Post(props) {
                 <CardActions
                     disableSpacing
                     style={{
-                    display: "contents"
-                }}>
-                    <IconButton aria-label="add to favorites">
+                        display: "contents"
+                    }}>
+                    {/* FavouriteIcon is the heart icon that we will use when we implement post likes */}
+                    {/* <IconButton aria-label="add to favorites">
                         <FavoriteIcon/>
-                    </IconButton>
+                    </IconButton> */}
                     <IconButton
                         className={clsx(classes.expand, {
-                        [classes.expandOpen]: expanded
-                    })}
+                            [classes.expandOpen]: expanded
+                        })}
                         onClick={handleExpandClick}
                         aria-expanded={expanded}
                         aria-label="show more">
-                        <ExpandMoreIcon/>
+                        <ExpandMoreIcon />
                     </IconButton>
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                        <Comments post={post}/>
+                        <MuiPickersUtilsProvider utils={MomentUtils}>
+                            <DateTimePicker value={selectedDate} onChange={handleDateChange} />
+                        </MuiPickersUtilsProvider>
+                        <Comments post={post} />
                     </CardContent>
                 </Collapse>
             </Card>

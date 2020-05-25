@@ -1,12 +1,33 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import axios from "axios";
 import Post from "../../components/Posts/Post"
 import PostInput from '../../components/Posts/PostInput';
-import {useAuth} from "../../utils/auth";
+import { useAuth } from "../../utils/auth";
+
+
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+function Copyright() {
+    return (
+        <Typography variant="body2" color="textSecondary" align="center">
+            {'Copyright © '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
+    );
+}
+const useStyles = makeStyles((theme) => ({
+  
+    footer: {
+        padding: theme.spacing(6),
+    },
+}));
 
 export default function Posts() {
-    const {user} = useAuth();
+    const classes = useStyles();
+
+    const { user } = useAuth();
     const [posts,
         setPosts] = useState([]);
 
@@ -30,9 +51,9 @@ export default function Posts() {
         e.preventDefault()
         axios
             .post('/api/post', {
-            authorId: user.id,
-            text: textFieldValue
-        })
+                authorId: user.id,
+                text: textFieldValue
+            })
             .then(() => {
                 fetchData();
             })
@@ -45,21 +66,31 @@ export default function Posts() {
                     <PostInput
                         onChange={newPostInputChange}
                         onSubmit={handleSubmitNewPost}
-                        value={textFieldValue}/>
+                        value={textFieldValue} />
                     <div
                         className="post-content"
                         style={{
-                        maxWidth: "100%",
-                        justifyContent: "center"
-                    }}>
+                            maxWidth: "100%",
+                            justifyContent: "center"
+                        }}>
                         {posts
-                            ? (posts.map((post, i) => <Post key={i} post={post} id={post.id}/>))
+                            ? (posts.map((post, i) => <Post key={i} post={post} id={post.id} />))
                             : (
                                 <p>Loading...</p>
                             )}
                     </div>
                 </Grid>
             </Grid>
+            <footer className={classes.footer}>
+                <Typography variant="h6" align="center" gutterBottom>
+                    Paw Pals
+        </Typography>
+                <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
+                    We will give Paw Pals users some info here
+        </Typography>
+                <Copyright />
+            </footer>
         </div>
+
     );
 }
