@@ -16,6 +16,10 @@ import Avatar from "@material-ui/core/Avatar";
 import Tab from "@material-ui/core/Tab";
 import Axios from 'axios'
 
+///////// Imports needed for post preview ///////
+import Post from "../../components/Posts/Post"
+import { CardHeader } from "@material-ui/core";
+/////// End Imports for posts///////////////////
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -98,10 +102,30 @@ export default function NewProfile() {
     getAllUsers();
   }, [user]);
 
+  /////////////// Post preview Section/////////
+  
+  const [latestPost, setLatestPost] = useState()
+  useEffect(() => {
+    function getPosts() {
+      Axios.get('/api/post').then((res) => {
+        console.log(res.data);
+        if(res.data.length === 0){
+          setLatestPost([]);
+        }
+        else {
+          setLatestPost(res.data[0]);
+        }
+      })
+    }
+    getPosts();
+  },[])
+  /////////////// End Post preview Section //////
+
   const classes = useStyles();
 
   return (
     <React.Fragment>
+      {console.log(latestPost)}
       <CssBaseline />
       {/* <AppBar position="relative">
           <Toolbar>
@@ -151,18 +175,29 @@ export default function NewProfile() {
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <Card className={classes.card}>
+            
                 <CardContent className={classes.cardContent}>
                   <Typography gutterBottom variant="h5" component="h2">
-                    Whats pulling your tail?
+                    What's waggin in the Community?
                   </Typography>
-                  <Typography>
+                  {/* <Typography>
                     This is a media card. You can use this section to describe
                     the content.
-                  </Typography>
+                  </Typography> */}
+                  <Box to="/posts" component={Link} display="flex" flexWrap="wrap">
+                  {latestPost ? (<Card>
+                    <CardHeader title={latestPost.authorId.username} subheader={latestPost.timeStamp}/>
+                    <CardContent>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        {latestPost.text}
+                    </Typography>
                 </CardContent>
+                  </Card>) : <h2>No Posts Available</h2>}
+                  </Box>
+                </CardContent>
+              
               </Card>
             </Grid>
-
             <Grid item xs={12} sm={6}>
               <Card className={classes.card}>
                 <CardContent className={classes.cardContent}>
