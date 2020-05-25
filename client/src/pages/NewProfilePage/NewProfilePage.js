@@ -14,6 +14,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Axios from "axios";
+import BioEdit from "../../components/BioEdit/BioEdit"
 
 ///////// Imports needed for post preview ///////
 import { CardHeader } from "@material-ui/core";
@@ -223,6 +224,7 @@ export default function NewProfile() {
                     the content.
                   </Typography>
                 </CardContent>
+                <BioEdit />
               </Card>
             </Grid>
 
