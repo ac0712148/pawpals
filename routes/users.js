@@ -144,7 +144,7 @@ router.patch("/api/unfollowers/:id", isAuthenticated, (req, res) => {
 
 router.get("/api/following/:id", async (req, res) => {
   const users = await db.User.find();
-  res.status(200).json(users);
+  res.status(200).json(users.following());
 });
 
 router.patch("/api/following/:id", isAuthenticated, (req, res) => {
