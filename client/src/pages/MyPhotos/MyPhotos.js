@@ -10,8 +10,9 @@ import Container from '@material-ui/core/Container';
 import API from "../../utils/API"
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+// import Axios from "axios"
 
-function Copyright() {
+function Copyright(props) {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
@@ -73,6 +74,7 @@ export default function MyPhotos() {
       .then(res => {
         API.addUserPhotos(user.id, res.data.Location)
           .then((res) => {
+            console.log(res.data.userPhotos)
             setPhotos(res.data.userPhotos)
           }).catch(err => {
             console.log(err)
@@ -92,10 +94,20 @@ export default function MyPhotos() {
     fetchData();
   }, [user.id]);
 
+  function handleDelete(photourl) {
+    console.log(photourl)
+    console.log(user.id)
+    API.deletePhoto(user.id, photourl) 
 
+    // Axios.delete(`/api/userPhotos/${user.id}`, {
+    //   photo: photourl
+    // })
 
+  }
+ 
   return (
     <React.Fragment>
+      
       <CssBaseline />
       <main>
         {/* Hero unit */}
@@ -113,7 +125,11 @@ export default function MyPhotos() {
                   <input type="file" onChange={selectFile} />
                 </Grid>
                 <Grid item>
-                  <button onClick={sendFile}>Send File</button>
+                  <button onClick={sendFile}
+                  // This onclick/onchgange should clear the file field
+                  // onClick={e => (e.target.value = null)} 
+                  >Upload</button>
+                  
                 </Grid>
               </Grid>
             </div>
@@ -131,19 +147,19 @@ export default function MyPhotos() {
                     image={url}
                     title="Image title"
                   />              
-                  <IconButton aria-label="delete" className={classes.margin}>
+                  <IconButton aria-label="delete" className={classes.margin} onClick={() => handleDelete(url)}>
                     <DeleteIcon fontSize="small" />
                   </IconButton>                 
                 </Card>                
               </Grid>          
-            ))}
+            ))} 
           </Grid>
         </Container>
       </main>
       {/* Footer */}
       <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
-          Paw Pals
+          PawPals!
         </Typography>
         <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
           We will give Paw Pals users some info here
