@@ -50,15 +50,16 @@ export default function FollowingCard(props) {
     const classes = useStyles();
 
     const {card, i, handleunFollow} = props;
+    const image = card.userPhotos[0]
+                    ? card.userPhotos[0]
+                    : "https://naturalhistory.si.edu/themes/gesso/images/default-avatar.jpg"
 
     return (
         <Grid item key={i} xs={12} sm={6} md={4}>
             <Card className={classes.card}>
                 <CardMedia
                     className={classes.cardMedia}
-                    image={card.userPhotos[0]
-                    ? card.userPhotos[0]
-                    : "https://naturalhistory.si.edu/themes/gesso/images/default-avatar.jpg"}
+                    image={image}
                     title="Image title"/>
                 <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
