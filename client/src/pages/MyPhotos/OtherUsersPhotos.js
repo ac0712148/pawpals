@@ -53,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function OtherUsersPhotos(props) {
   const id = props.match.params.id;
-  console.log(id)
 
   const classes = useStyles();
   const [photos, setPhotos] = useState([])
@@ -79,7 +78,7 @@ export default function OtherUsersPhotos(props) {
               Other Users photo
             </Typography>
             <Typography variant="h5" align="center" color="textSecondary" paragraph>
-              Here are some photos of me with my friends
+              Here are some of my friends photos
             </Typography>
           </Container>
         </div>
