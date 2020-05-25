@@ -5,6 +5,7 @@ import Post from "../../components/Posts/Post"
 import PostInput from '../../components/Posts/PostInput';
 import { useAuth } from "../../utils/auth";
 
+
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 function Copyright() {

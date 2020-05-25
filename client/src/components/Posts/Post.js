@@ -56,7 +56,9 @@ export default function Post(props) {
                     //     R
                     //   </Avatar>
                     // }
-                    action={< IconButton aria-label = "settings" > <MoreVertIcon/> </IconButton>} title={post.authorId.username} subheader={post.timeStamp}/>
+                    // IconButton is the setting icon that we have not used for now.
+                    // action={< IconButton aria-label = "settings" > <MoreVertIcon/> </IconButton>} 
+                    title={post.authorId.username} subheader={post.timeStamp}/>
                 <CardContent>
                     <Typography variant="body2" color="textSecondary" component="p">
                         {post.text}
