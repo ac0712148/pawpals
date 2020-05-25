@@ -53,7 +53,7 @@ function App() {
 
             <Route exact path="/signup" component={Signup} />
 
-            <Route exact path="/otherPhotos/:id" component={OtherPhotos} />
+            <Route exact path="/otherPhotos/:id/:username" component={OtherPhotos} />
                       
             <ProtectedRoute exact path="/profile" component={Profile} />
                         
