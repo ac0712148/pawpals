@@ -15,6 +15,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Avatar from "@material-ui/core/Avatar";
 import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
 import Axios from "axios";
 
 ///////// Imports needed for post preview ///////
@@ -83,6 +84,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 5, 0),
     height: "20px",
   },
+
 }));
 
 // const cardsFirstRow = [1, 2];
@@ -119,13 +121,13 @@ export default function NewProfile() {
   }, [user.id]);
 
   /////////////// Post preview Section/////////
-  
+
   const [latestPost, setLatestPost] = useState()
   useEffect(() => {
     function getPosts() {
       Axios.get('/api/post').then((res) => {
         console.log(res.data);
-        if(res.data.length === 0){
+        if (res.data.length === 0) {
           setLatestPost([]);
         }
         else {
@@ -134,7 +136,7 @@ export default function NewProfile() {
       })
     }
     getPosts();
-  },[])
+  }, [])
   /////////////// End Post preview Section //////
 
   const classes = useStyles();
@@ -164,10 +166,11 @@ export default function NewProfile() {
               variant="h5"
               align="center"
               color="textSecondary"
-              // paragraph
+            // paragraph
             ></Typography>
 
-            <div className={classes.heroButtons}>
+            THIS IS THE UPDATE BUTTON (WE'LL ADD THIS FEATURE LATER)
+            {/* <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
                 <Grid item>
                   <Button variant="outlined" color="primary">
@@ -175,7 +178,7 @@ export default function NewProfile() {
                   </Button>
                 </Grid>
               </Grid>
-            </div>
+            </div> */}
           </Container>
         </div>
 
@@ -183,7 +186,7 @@ export default function NewProfile() {
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <Card className={classes.card}>
-            
+
                 <CardContent className={classes.cardContent}>
                   <Typography gutterBottom variant="h5" component="h2">
                     What's waggin in the Community?
@@ -193,17 +196,17 @@ export default function NewProfile() {
                     the content.
                   </Typography> */}
                   <Box to="/posts" component={Link} display="flex" flexWrap="wrap">
-                  {latestPost ? (<Card>
-                    <CardHeader title={latestPost.authorId.username} subheader={latestPost.timeStamp}/>
-                    <CardContent>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        {latestPost.text}
-                    </Typography>
-                </CardContent>
-                  </Card>) : <h2>No Posts Available</h2>}
+                    {latestPost ? (<Card>
+                      <CardHeader title={latestPost.authorId.username} subheader={latestPost.timeStamp} />
+                      <CardContent>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                          {latestPost.text}
+                        </Typography>
+                      </CardContent>
+                    </Card>) : <h2>No Posts Available</h2>}
                   </Box>
                 </CardContent>
-              
+
               </Card>
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -233,22 +236,19 @@ export default function NewProfile() {
                           variant="square"
                           className={classes.tab}
                         />
-                      </Box>                  
+                      </Box>
                     ))}
                 </Box>
-                
-                {/* <CardMedia
-                  className={classes.cardMedia}
-                  image="https://upload.wikimedia.org/wikipedia/commons/d/d9/Collage_of_Nine_Dogs.jpg"
-                  title="Image title"
-                /> */}
+
                 <CardContent className={classes.cardContent}>
-                  {/* <Typography gutterBottom variant="h5" component="h2">
-                    <Button variant="contained" className={classes.btn} justify='center'>
-                          Click for more pals
-                          </Button>
-                    </Typography> */}
-                  <Tab label="View Photos" to="/myphotos" component={Link} />
+                <Tabs
+                    fullWidth={true}                   
+                    centered
+                    style={{color: "rgb(41,189,193)"}}
+                  >
+                  <Tab label="View All Photos" to="/myphotos" component={Link} 
+                  />
+                  </Tabs>
                 </CardContent>
               </Card>
             </Grid>
@@ -257,17 +257,22 @@ export default function NewProfile() {
             <Grid item xs={12} sm={6}>
               <Card className={classes.card}>
                 <CardContent className={classes.cardContent}>
+                <Tabs
+                    fullWidth={true}                   
+                    centered
+
+                  >
                   <Typography
                     gutterBottom
                     variant="h5"
                     component="h2"
                     className={classes.cardHeading}
                   >
-                    My Paw Pals
+                    Pack Pics
                   </Typography>
-
+                  </Tabs>
                   {users
-                    .filter((x, i) => i < 4)
+                    .filter((x, i) => i > 0 && i < 5)
                     .map((card, i) => {
                       console.log(card)
                       const image = card.userPhotos[0]
@@ -275,76 +280,61 @@ export default function NewProfile() {
                         : "https://naturalhistory.si.edu/themes/gesso/images/default-avatar.jpg";
 
                       return (
-                        // <Box my={1} key={i + "-avatar"} display="flex">
-                        <div key={i}>
+                        <Box my={1} key={i + "-avatar"} display="flex">
                           <Avatar
                             alt="Remy Sharp"
                             src={image}
                             component="span"
                           />
-                          <Box to={`/otherPhotos/${card._id}/${card.username}`} component={Link} display="flex" flexWrap="wrap">
-                          <Typography
-                            align="center"
-                            classes={{ root: classes.username }}
-                          >
-                            {card.username}
-                          </Typography>
+                          <Box style={{textDecoration: "none"}} to={`/otherPhotos/${card._id}/${card.username}`} component={Link} display="flex" flexWrap="wrap">
+                            <Typography
+                              align="center"
+                              classes={{ root: classes.username }}
+                            >
+                              {card.username}'s photos
+                            </Typography>
                           </Box>
-                          </div>
-                        // </Box>
+                        </Box>
                       );
                     })}
 
-                  {/* <Avatar
-                    alt="Remy Sharp"
-                    src="https://www.lovethispic.com/uploaded_images/19345-Black-And-Brown-Puppy.jpg?2"
-                    className={classes.medium}
-                  />
-                  <Avatar
-                    alt="Remy Sharp"
-                    src="https://minepuppy.com/wp-content/uploads/2018/02/pug-breed-minepuppy.jpg"
-                    className={classes.medium}
-                  />
-                  <Avatar
-                    alt="Remy Sharp"
-                    src="https://minepuppy.com/wp-content/uploads/2018/02/pug-breed-minepuppy.jpg"
-                    className={classes.medium}
-                  /> */}
-                  <Tab
-                    label="View All Paw Pals"
-                    to="./following"
-                    component={Link}
-                  />
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      View
-                    </Button>
-                  </CardActions>
+                  <Tabs
+                    fullWidth={true}                   
+                    centered
+                    style={{color: "rgb(41,189,193)"}}
+                  >
+                    <Tab                    
+                      label="Click here for my PawPals"
+                      to="./following"
+                      component={Link}
+                    />
+                    </Tabs>
+
                 </CardContent>
               </Card>
             </Grid>
-          </Grid>
+            </Grid>
         </Container>
       </main>
 
-      <Typography className={classes.root}></Typography>
+        <Typography className={classes.root}></Typography>
 
-      {/* Footer */}
-      <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          Paw Pals
+        {/* Footer */}
+        <footer className={classes.footer}>
+          <Typography variant="h6" align="center" gutterBottom>
+            PawPals!
         </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="textSecondary"
-          component="p"
-        >
-          We will give Paw Pals users some info here
+          <Typography
+            variant="subtitle1"
+            align="center"
+            color="textSecondary"
+            component="p"
+          >
+            {/* We will give Pawpals users some info here */}
         </Typography>
-        <Copyright />
-      </footer>
-      {/* End footer */}
+          <Copyright />
+        </footer>
+        {/* End footer */}
     </React.Fragment>
   );
 }
