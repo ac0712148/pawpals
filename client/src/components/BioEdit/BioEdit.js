@@ -6,9 +6,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Tab from "@material-ui/core/Tab"
 
 
-export default function FormDialog() {
+export default function FormDialog( {onChange, onSubmit, value}) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -21,34 +22,44 @@ export default function FormDialog() {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open form dialog
-      </Button>
+      <Tab                    
+        label="Add/Edit Bio"
+        style={{
+          "color": "rgb(41,189,193)",
+          "alignText": "center"
+        }}
+        onClick={handleClickOpen}
+      />
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle id="form-dialog-title">Tell us About Yourself</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here. We will send updates
-            occasionally.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            Subscribe
-          </Button>
-        </DialogActions>
+            Write a small paragraph about yourself....
+            </DialogContentText>
+            {/* <form> */}
+              <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Bio..."
+                type="bio"
+                value={value}
+                onChange={onChange}
+                fullWidth
+              />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Clear
+            </Button>
+            <form  noValidate onSubmit={onSubmit}
+    autoComplete="off">
+            <Button onClick={handleClose} color="primary" type="submit">
+              Submit
+            </Button>
+            </form>
+          </DialogActions>
       </Dialog>
-    </div>
+      </div>
   );
 }
