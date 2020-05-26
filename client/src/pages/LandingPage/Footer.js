@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Footer(props) {
   const classes = useStyles();
-  const description = "hello from landingpage";
+  const description = "";
   const title= "Pawpals"
 
   return (

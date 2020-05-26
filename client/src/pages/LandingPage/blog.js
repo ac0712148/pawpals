@@ -4,8 +4,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import TwitterIcon from '@material-ui/icons/Twitter';
 import MainFeaturedPost from './MainFeaturedPost';
 import FeaturedPost from './FeaturedPost';
 import Sidebar from './Sidebar';
@@ -56,9 +54,10 @@ const sidebar = {
   description:
     'Private, Zero ads, User friendly interface, and Fun to use. Pawpals is an excellent home for you and your pet',
   social: [
-    { name: 'GitHub', icon: GitHubIcon },
-    { name: 'Twitter', icon: TwitterIcon },
-    { name: 'Facebook', icon: FacebookIcon },
+    { name: 'Pawpals', icon: GitHubIcon, github : "https://github.com/ac0712148/pawpals" },
+    { name: 'michaelleojacob', icon: GitHubIcon, github : "https://github.com/Michaelleojacob" },
+    { name: 'albertcervantes', icon: GitHubIcon, github : "https://github.com/ac0712148" },
+    { name: 'markprodehl', icon: GitHubIcon, github : "https://github.com/markprodehl"},
   ],
 };
 
