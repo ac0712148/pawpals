@@ -78,9 +78,9 @@ export default function OtherUsersPhotos(props) {
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
               {name}'s photos
             </Typography>
-            <Typography variant="h5" align="center" color="textSecondary" paragraph>
+            {/* <Typography variant="h5" align="center" color="textSecondary" paragraph>
               Here are some of my friends photos
-            </Typography>
+            </Typography> */}
           </Container>
         </div>
 
