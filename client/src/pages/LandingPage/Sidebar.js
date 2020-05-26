@@ -32,7 +32,7 @@ export default function Sidebar(props) {
         Social
       </Typography>
       {social.map((network, index) => (
-        <Link display="block" variant="body1" href="#" key={index}>
+        <Link display="block" variant="body1" href={network.github} key={index}>
           <Grid container direction="row" spacing={1} alignItems="center">
             <Grid item>
               <network.icon />
