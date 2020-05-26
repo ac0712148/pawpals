@@ -12,7 +12,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Avatar from "@material-ui/core/Avatar";
 import Tab from "@material-ui/core/Tab";
-import Tabs from "@material-ui/core/Tabs";
 import Axios from "axios";
 import BioEdit from "../../components/BioEdit/BioEdit"
 
@@ -293,14 +292,8 @@ export default function NewProfile() {
                 </Box>
 
                 <CardContent className={classes.cardContent}>
-                <Tabs
-                    fullWidth                  
-                    centered
-                    style={{color: "rgb(41,189,193)"}}
-                  >
                   <Tab label="View All Photos" to="/myphotos" component={Link} 
                   />
-                  </Tabs>
                 </CardContent>
               </Card>
             </Grid>
@@ -309,11 +302,7 @@ export default function NewProfile() {
             <Grid item xs={12} sm={6}>
               <Card className={classes.card}>
                 <CardContent className={classes.cardContent}>
-                <Tabs
-                    fullWidth                 
-                    centered
-
-                  >
+            
                   <Typography
                     gutterBottom
                     variant="h5"
@@ -322,7 +311,7 @@ export default function NewProfile() {
                   >
                     Pack Pics
                   </Typography>
-                  </Tabs>
+           
                   {users
                     .filter((x, i) => i > 0 && i < 5)
                     .map((card, i) => {
@@ -349,19 +338,15 @@ export default function NewProfile() {
                         </Box>
                       );
                     })}
-
-                  <Tabs
-                    // fullWidth                 
-                    centered
-                    style={{color: "rgb(41,189,193)"}}
-                  >
                     <Tab                    
                       label="Click here for my PawPals"
                       to="./following"
                       component={Link}
-                    />
-                    </Tabs>
-
+                      style={{
+                        "color": "rgb(41,189,193)",
+                        "alignText": "center"
+                      }}
+                    />               
                 </CardContent>
               </Card>
             </Grid>
