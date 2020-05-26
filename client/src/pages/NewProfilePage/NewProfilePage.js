@@ -232,8 +232,8 @@ export default function NewProfile() {
                     <Card style={{width: "100%", backgroundColor: "#F4F6F6"}}>
                       {/* <CardHeader title="latestPost.authorId.username" /> */}
                       <CardContent>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                        {bio ? bio : <h2> Add a Bio...</h2>}
+                        <Typography variant="body2" color="textSecondary" component="h2">
+                        {bio ? bio :  <span>Add a Bio... </span>}
                         </Typography>
                       </CardContent>
                     </Card>
