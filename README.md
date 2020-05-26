@@ -6,10 +6,9 @@
 </p>
 
 <p align="center">
-    social media platform for dogs and dog lovers!
+    social media platform for dogs and dog lovers! Click the image to see our app!
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -21,16 +20,16 @@
 - [Sponsors](#sponsors-)
 - [Acknowledgments](#acknowledgments)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Introduction
 
 
 **Available on any device with chrome! Sign up to get started!**
 
-<p align="center">
-  <img src = "https://i.imgur.com/1G0GGrA.gifv" width=350>
-</p>
+
+
+![Signup](https://i.imgur.com/1G0GGrA.gif)
+
 
 ## Features
 
@@ -45,10 +44,7 @@ A few of the things you can do with GitPoint:
 * Comment on other user's forum posts
 * Share a snippet of who you are and or about your dog(s)!
 
-<p align="center">
-  <img src = "https://i.imgur.com/b5sv8rj.gifv" width=700>
-</p>
-
+![Features](https://i.imgur.com/b5sv8rj.gif)
 
 ## Feedback
 
@@ -74,7 +70,6 @@ Server instructions
 
 - [Express.js](https://expressjs.com/) - Backend web framework
 - [Heroku](http://heroku.com/) - Platform to deploy web applications
-- [JSON Web Token](https://jwt.io/) - A standard to securely authenticate HTTP requests
 - [Material-UI](https://material-ui.com/) - UI library for React
 - [MongoDB](https://www.mongodb.com/) - Database to store document-based data
 - [Mongoose](https://mongoosejs.com/) - Object-modeling tool for Node.js
@@ -84,4 +79,4 @@ Server instructions
 
 ## Acknowledgments
 
-Thanks to Michael Jacob, Mark Prodehl, and Albert Cervantes for making this project a real app.
+Thanks to Michael Jacob, Mark Prodehl, and Albert Cervantes for developing and maintaining this app!
