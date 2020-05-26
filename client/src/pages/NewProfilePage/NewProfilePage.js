@@ -117,6 +117,44 @@ export default function NewProfile() {
     }
   }, [user.id]);
 
+  ////////////////Bio Part ///////////////////////
+  const [textFieldValue,
+    setTextFieldValue] = useState("");
+    const [bio, setBio] = useState("");
+    const [userRefresh, triggerUserRefresh] = useState(true)
+
+    useEffect(() => {
+      function fetchData() {
+        Axios.get(`/api/user/${user.id}`).then((res) => {
+          setBio(res.data.bio)
+        });
+      }
+      if(userRefresh){
+        fetchData();
+      }
+      triggerUserRefresh(false)
+    }, [user.id, userRefresh]);
+
+  const newPostInputChange = (e) => {
+    console.log(e.target.value)
+    setTextFieldValue(e.target.value);
+  };
+
+  const handleSubmitNewPost = (e) => {
+    // Body is { "bio" : "text"}
+    e.preventDefault()
+    Axios
+        .patch(`/api/userBio/${user.id}`, {
+            bio: textFieldValue
+        })
+        .then(() => {
+            // fetchData();
+        })
+    setTextFieldValue("")
+    triggerUserRefresh(true)
+};
+//////////////////////////// End Bio Part
+
   /////////////// Post preview Section/////////
   
   const [latestPost, setLatestPost] = useState([])
@@ -185,6 +223,29 @@ export default function NewProfile() {
 
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={3}>
+
+                       {/* {Bio} */}
+                       <Grid item xs={12} sm={6}>
+              <Card className={classes.card}>
+                <CardContent className={classes.cardContent}>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Who is PawPal {username}!
+                    <Card style={{width: "100%", backgroundColor: "#F4F6F6"}}>
+                      {/* <CardHeader title="latestPost.authorId.username" /> */}
+                      <CardContent>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                        {bio ? bio : <h2> Add a Bio...</h2>}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Typography>
+                </CardContent>
+                <BioEdit onChange={newPostInputChange} onSubmit={handleSubmitNewPost} value={textFieldValue}/>
+              </Card>
+            </Grid>
+
+
+            {/* Post */}
             <Grid item xs={12} sm={6}>
               <Card className={classes.card}>
 
@@ -213,20 +274,6 @@ export default function NewProfile() {
 
               </Card>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <Card className={classes.card}>
-                <CardContent className={classes.cardContent}>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    About Me
-                  </Typography>
-                  <Typography>
-                    This is a media card. You can use this section to describe
-                    the content.
-                  </Typography>
-                </CardContent>
-                <BioEdit />
-              </Card>
-            </Grid>
 
             {/* PHOTOS */}
             <Grid item xs={12} sm={6}>
@@ -247,7 +294,7 @@ export default function NewProfile() {
 
                 <CardContent className={classes.cardContent}>
                 <Tabs
-                    fullWidth={true}                   
+                    fullWidth                  
                     centered
                     style={{color: "rgb(41,189,193)"}}
                   >
@@ -263,7 +310,7 @@ export default function NewProfile() {
               <Card className={classes.card}>
                 <CardContent className={classes.cardContent}>
                 <Tabs
-                    fullWidth={true}                   
+                    fullWidth                 
                     centered
 
                   >
@@ -304,7 +351,7 @@ export default function NewProfile() {
                     })}
 
                   <Tabs
-                    fullWidth={true}                   
+                    // fullWidth                 
                     centered
                     style={{color: "rgb(41,189,193)"}}
                   >
